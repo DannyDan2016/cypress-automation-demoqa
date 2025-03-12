@@ -1,0 +1,109 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false,
+    "start": "2025-03-12T03:07:28.232Z",
+    "end": "2025-03-12T03:07:48.349Z",
+    "duration": 20117
+  },
+  "results": [
+    {
+      "uuid": "d840cbb5-b153-4790-98a2-c5c4eb31c3d6",
+      "title": "",
+      "fullFile": "cypress\\e2e\\pruebas\\textBox.spec.cy.js",
+      "file": "cypress\\e2e\\pruebas\\textBox.spec.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "631f5728-f290-404e-8529-faef0099ab80",
+          "title": "Pruebas en la página de Text Box",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Debe completar el formulario y verificar los datos ingresados",
+              "fullTitle": "Pruebas en la página de Text Box Debe completar el formulario y verificar los datos ingresados",
+              "timedOut": null,
+              "duration": 19970,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const datos = this.datos;\ntextBoxPage.escribirNombre(datos.nombre);\ncy.wait(1000);\ncy.screenshot(\"Paso_1_Nombre_ingresado\");\ntextBoxPage.escribirEmail(datos.email);\ncy.wait(1000);\ncy.screenshot(\"Paso_2_Email_ingresado\");\ntextBoxPage.escribirDireccionActual(datos.direccion);\ncy.wait(1000);\ncy.screenshot(\"Paso_3_DireccionActual_ingresada\");\ntextBoxPage.escribirDireccionPermanente(datos.direccionPermanente);\ncy.wait(1000);\ncy.screenshot(\"Paso_4_DireccionPermanente_ingresada\");\ntextBoxPage.clickEnBotonEnviar();\ncy.wait(1000);\ncy.screenshot(\"Paso_5_Formulario_Enviado\");\n// Verifica que los elementos existan antes de comprobar su contenido\ntextBoxPage.verificarNombreSalida().should(\"exist\").and(\"contain\", datos.nombre);\ncy.screenshot(\"Paso_6_Verificar_Nombre\");\ntextBoxPage.verificarEmailSalida().should(\"exist\").and(\"contain\", datos.email);\ncy.screenshot(\"Paso_7_Verificar_Email\");\ntextBoxPage.verificarDireccionActualSalida().should(\"exist\").and(\"contain\", datos.direccion);\ncy.screenshot(\"Paso_8_Verificar_DireccionActual\");\ntextBoxPage.verificarDireccionPermanenteSalida().should(\"exist\").and(\"contain\", datos.direccionPermanente);\ncy.screenshot(\"Paso_9_Verificar_DireccionPermanente\");",
+              "err": {},
+              "uuid": "73e19a5c-7c14-4375-b3c3-522c124f7853",
+              "parentUUID": "631f5728-f290-404e-8529-faef0099ab80",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "73e19a5c-7c14-4375-b3c3-522c124f7853"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 19970,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports",
+        "overwrite": false,
+        "html": true,
+        "json": true,
+        "timestamp": "mmddyyyy_HHMMss",
+        "embeddedScreenshots": true,
+        "inlineAssets": true,
+        "saveJson": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}

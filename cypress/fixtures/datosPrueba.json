@@ -1,0 +1,47 @@
+{
+"usuarios": [
+{
+    "usuario": "testUser",
+    "clave": "Password123!"
+},
+{
+    "usuario": "qaTester",
+    "clave": "SecurePass456!"
+}
+],
+"libros": [
+{
+    "titulo": "Git Pocket Guide"
+},
+{
+    "titulo": "Learning JavaScript Design Patterns"
+}
+],
+"formularios": {
+"textBox": {
+    "nombre": "Juan Pérez",
+    "email": "juan.perez@example.com",
+    "direccion": "Calle 123, Ciudad, País",
+    "direccionPermanente": "Avenida 456, Ciudad, País"
+},
+"webTables": {
+    "nombre": "Carlos García",
+    "apellido": "López",
+    "edad": "30",
+    "email": "carlos.lopez@example.com",
+    "salario": "50000",
+    "departamento": "QA"
+}
+},
+"botones": {
+"dobleClick": "You have done a double click",
+"clickDerecho": "You have done a right click",
+"clickSimple": "You have done a dynamic click"
+},
+"alertas": {
+"mensajeAlerta": "You clicked a button"
+},
+"dragAndDrop": {
+"mensajeExito": "Dropped!"
+}
+}
