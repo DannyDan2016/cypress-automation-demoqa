@@ -50,6 +50,12 @@
     "elementoSeleccionado": "Desktop",
     "elementosMultiples": ["Documents", "Downloads", "Desktop"],
     "elementoParaDeseleccionar": "Documents"
+},
+"radioButton": {
+    "opciones": ["Yes", "Impressive", "No"],
+    "mensajeYes": "You have selected Yes",
+    "mensajeImpressive": "You have selected Impressive",
+    "mensajeNo": "You have selected No"
 }
 
 }
