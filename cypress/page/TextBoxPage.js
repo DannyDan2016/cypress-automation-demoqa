@@ -1,38 +1,52 @@
 export class TextBoxPage {
+  constructor() {
+    this.selectors = {
+      nombreInput: "#userName",
+      emailInput: "#userEmail",
+      direccionActualInput: "#currentAddress",
+      direccionPermanenteInput: "#permanentAddress",
+      botonEnviar: "#submit",
+      nombreSalida: "#name",
+      emailSalida: "#email",
+      direccionActualSalida: ".border > #currentAddress",
+      direccionPermanenteSalida: ".border > #permanentAddress"
+    };
+  }
+
   escribirNombre(nombre) {
-    cy.get("#userName").type(nombre);
+    cy.get(this.selectors.nombreInput).type(nombre);
   }
 
   escribirEmail(email) {
-    cy.get("#userEmail").type(email);
+    cy.get(this.selectors.emailInput).type(email);
   }
 
   escribirDireccionActual(direccion) {
-    cy.get("#currentAddress").type(direccion);
+    cy.get(this.selectors.direccionActualInput).type(direccion);
   }
 
   escribirDireccionPermanente(direccion) {
-    cy.get("#permanentAddress").type(direccion);
+    cy.get(this.selectors.direccionPermanenteInput).type(direccion);
   }
 
   clickEnBotonEnviar() {
-    cy.get("#submit").click();
+    cy.get(this.selectors.botonEnviar).click();
   }
 
   verificarNombreSalida() {
-    return cy.get("#name");
+    return cy.get(this.selectors.nombreSalida);
   }
 
   verificarEmailSalida() {
-    return cy.get("#email");
+    return cy.get(this.selectors.emailSalida);
   }
 
   verificarDireccionActualSalida() {
-    return cy.get('.border > #currentAddress');
+    return cy.get(this.selectors.direccionActualSalida);
   }
 
   verificarDireccionPermanenteSalida() {
-    return cy.get('.border > #permanentAddress');
+    return cy.get(this.selectors.direccionPermanenteSalida);
   }
 }
 

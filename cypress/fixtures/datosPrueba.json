@@ -4,10 +4,12 @@
     "usuario": "testUser",
     "clave": "Password123!"
 },
+
 {
     "usuario": "qaTester",
     "clave": "SecurePass456!"
 }
+
 ],
 "libros": [
 {
@@ -43,5 +45,11 @@
 },
 "dragAndDrop": {
 "mensajeExito": "Dropped!"
+},
+"checkbox": {
+    "elementoSeleccionado": "Desktop",
+    "elementosMultiples": ["Documents", "Downloads", "Desktop"],
+    "elementoParaDeseleccionar": "Documents"
 }
+
 }
