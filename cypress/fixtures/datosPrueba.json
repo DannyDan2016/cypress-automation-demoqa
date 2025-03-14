@@ -2,7 +2,7 @@
 "usuarios": [
     {
     "usuario": "testUser",
-    "clave": "Password123!"
+    "clave": "testPassword123"
     },
     {
     "usuario": "qaTester",
@@ -25,8 +25,8 @@
     "direccionPermanente": "Avenida 456, Ciudad, País"
     },
     "webTables": {
-    "nombre": "Carlos García",
-    "apellido": "López",
+    "nombre": "Carlos",
+    "apellido": "García",
     "edad": "30",
     "email": "carlos.lopez@example.com",
     "salario": "50000",
@@ -34,15 +34,14 @@
     }
 },
 "botones": {
+    "mensajesEsperados": {
     "dobleClick": "You have done a double click",
     "clickDerecho": "You have done a right click",
-    "clickSimple": "You have done a dynamic click"
+    "clickUnico": "You have done a dynamic click"
+    }
 },
 "alertas": {
     "mensajeAlerta": "You clicked a button"
-},
-"dragAndDrop": {
-    "mensajeExito": "Dropped!"
 },
 "checkbox": {
     "elementoSeleccionado": "Desktop",

@@ -6,35 +6,39 @@ module.exports = defineConfig({
     baseUrl: "https://demoqa.com",
     defaultCommandTimeout: 30000,
     retries: 1,
-    screenshotOnRunFailure: true,
-    video: true,
-    videoCompression: 32, // Reduce el tamaño del video
-    videoUploadOnPasses: true, // Guarda el video aunque la prueba pase
     browser: "chrome",
     chromeWebSecurity: false,
     experimentalStudio: true,
-    experimentalSessionAndOrigin: true, // Habilita el acceso entre diferentes orígenes
     blockHosts: ["*google.com", "*facebook.com", "*ads.com"],
-    
-    // Borra screenshots y videos antes de cada ejecución
+
+    // Desactiva la eliminación de assets antes de correr pruebas para evitar errores de archivos bloqueados
+    trashAssetsBeforeRuns: false,
+
     setupNodeEvents(on, config) {
       on("before:run", () => {
+        const reportsPath = "cypress/reports";
         const screenshotsPath = "cypress/reports/screenshots";
         const videosPath = "cypress/reports/videos";
 
-        if (fs.existsSync(screenshotsPath)) {
-          fs.rmSync(screenshotsPath, { recursive: true, force: true });
-          console.log("Screenshots eliminados antes de la ejecución");
-        }
-
-        if (fs.existsSync(videosPath)) {
-          fs.rmSync(videosPath, { recursive: true, force: true });
-          console.log("Videos eliminados antes de la ejecución");
+        try {
+          if (fs.existsSync(reportsPath)) {
+            fs.rmSync(reportsPath, { recursive: true, force: true });
+            console.log("Carpeta 'reports' eliminada antes de la ejecución.");
+          }
+          if (fs.existsSync(screenshotsPath)) {
+            fs.rmSync(screenshotsPath, { recursive: true, force: true });
+            console.log("Screenshots eliminados antes de la ejecución.");
+          }
+          if (fs.existsSync(videosPath)) {
+            fs.rmSync(videosPath, { recursive: true, force: true });
+            console.log("Videos eliminados antes de la ejecución.");
+          }
+        } catch (error) {
+          console.warn(`No se pudo eliminar la carpeta de reportes: ${error.message}`);
         }
       });
 
-      require("cypress-mochawesome-reporter/plugin")(on); // Integración con Mochawesome
-      return config;
+      require("cypress-mochawesome-reporter/plugin")(on);
     },
   },
 
@@ -45,23 +49,17 @@ module.exports = defineConfig({
   reporter: "cypress-mochawesome-reporter",
   reporterOptions: {
     reportDir: "cypress/reports",
-    overwrite: true, // Ahora sobrescribe los reportes anteriores
+    overwrite: false, // No sobrescribir para evitar el error EBUSY
     html: true,
     json: true,
     inline: true, // Inserta imágenes y videos en el reporte
     embeddedScreenshots: true, // Inserta screenshots en el reporte
     charts: true,
-    autoOpen: true, // Agrega gráficos visuales
+    autoOpen: true, // Abre el reporte automáticamente
   },
 
+  trashAssetsBeforeRuns: false, // Evita la eliminación automática de reportes
   screenshotsFolder: "cypress/reports/screenshots",
   videosFolder: "cypress/reports/videos",
   includeShadowDom: true,
 });
-
-
-
-
-
-
-
