@@ -13,6 +13,7 @@ module.exports = defineConfig({
     browser: "chrome",
     chromeWebSecurity: false,
     experimentalStudio: true,
+    experimentalSessionAndOrigin: true, // Habilita el acceso entre diferentes orígenes
     blockHosts: ["*google.com", "*facebook.com", "*ads.com"],
     
     // Borra screenshots y videos antes de cada ejecución

@@ -49,5 +49,3 @@ export class TextBoxPage {
     return cy.get(this.selectors.direccionPermanenteSalida);
   }
 }
-
-  
