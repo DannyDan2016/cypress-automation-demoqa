@@ -1,8 +1,13 @@
 // Registro de page objects: una instancia por página, compartida por los steps.
 // La clave es el nombre visible de la página, el mismo que usan los .feature en
 // "Dado que estoy en la página "<nombre>"".
+import { AlertsPage } from './alerts-frames-windows/AlertsPage';
+import { BrowserWindowsPage } from './alerts-frames-windows/BrowserWindowsPage';
+import { FramesPage } from './alerts-frames-windows/FramesPage';
+import { SamplePage } from './alerts-frames-windows/SamplePage';
 import { ButtonsPage } from './elements/ButtonsPage';
 import { CheckBoxPage } from './elements/CheckBoxPage';
+import { DynamicPropertiesPage } from './elements/DynamicPropertiesPage';
 import { RadioButtonPage } from './elements/RadioButtonPage';
 import { TextBoxPage } from './elements/TextBoxPage';
 import { WebTablesPage } from './elements/WebTablesPage';
@@ -13,7 +18,12 @@ export const checkBoxPage = new CheckBoxPage();
 export const radioButtonPage = new RadioButtonPage();
 export const webTablesPage = new WebTablesPage();
 export const buttonsPage = new ButtonsPage();
+export const dynamicPropertiesPage = new DynamicPropertiesPage();
 export const practiceFormPage = new PracticeFormPage();
+export const alertsPage = new AlertsPage();
+export const browserWindowsPage = new BrowserWindowsPage();
+export const framesPage = new FramesPage();
+export const samplePage = new SamplePage();
 
 const PAGES = {
   'Text Box': textBoxPage,
@@ -21,7 +31,11 @@ const PAGES = {
   'Radio Button': radioButtonPage,
   'Web Tables': webTablesPage,
   Buttons: buttonsPage,
+  'Dynamic Properties': dynamicPropertiesPage,
   'Practice Form': practiceFormPage,
+  Alerts: alertsPage,
+  'Browser Windows': browserWindowsPage,
+  Frames: framesPage,
 };
 
 export function pageByName(name) {
