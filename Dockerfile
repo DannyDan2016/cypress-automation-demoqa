@@ -15,7 +15,7 @@ RUN CYPRESS_INSTALL_BINARY=0 npm ci --no-audit --no-fund
 COPY . .
 
 # La imagen base ya define ENTRYPOINT ["cypress", "run"]; lo dejamos explícito.
-# Chrome porque Electron está deprecado en Cypress 16. Los reportes se generan en
-# /e2e/reports/mochawesome (montar /e2e/reports como volumen para recuperarlos).
+# Chrome porque Electron está deprecado en Cypress 16. El reporte de Cucumber (HTML y
+# JSON) y las capturas se generan en /e2e/reports (montarlo como volumen para recuperarlos).
 ENTRYPOINT ["cypress", "run"]
 CMD ["--browser", "chrome"]
