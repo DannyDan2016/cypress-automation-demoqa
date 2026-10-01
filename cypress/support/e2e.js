@@ -1,32 +1,14 @@
-// ***********************************************************
-// This example support/e2e.js is processed and
-// loaded automatically before your test files.
-//
-// This is a great place to put global configuration and
-// behavior that modifies Cypress.
-//
-// You can change the location of this file or turn off
-// automatically serving support files with the
-// 'supportFile' configuration option.
-//
-// You can read more here:
-// https://on.cypress.io/configuration
-// ***********************************************************
-
-// Import commands.js using ES2015 syntax:
-
-Cypress.on('uncaught:exception', (err) => {
-  console.warn('Error capturado:', err.message);
-  return false; // 🔥 Ignorar errores de scripts externos
-});
-
-beforeEach(() => {
-  cy.intercept('GET', '**/*', (req) => {
-    if (req.url.includes('ads') || req.url.includes('tracking')) {
-      req.destroy(); // ❌ Bloquea scripts de rastreo
-    }
-  }).as('blockExternalScripts');
-});
-
+// Se carga automáticamente antes de cada spec (opción `supportFile`).
 import './commands';
 import 'cypress-mochawesome-reporter/register';
+
+// DemoQA carga scripts de terceros (Google Tag Manager, anuncios) que a veces lanzan
+// errores ajenos a la aplicación. Solo se ignoran esos errores conocidos: cualquier
+// otra excepción no capturada debe hacer fallar el test.
+const ERRORES_TERCEROS_CONOCIDOS = /ResizeObserver loop|Script error|googletag|adsbygoogle/i;
+
+Cypress.on('uncaught:exception', (err) => {
+  if (ERRORES_TERCEROS_CONOCIDOS.test(err.message)) {
+    return false;
+  }
+});

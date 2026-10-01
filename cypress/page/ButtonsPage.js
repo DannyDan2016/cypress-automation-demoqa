@@ -1,39 +1,51 @@
 export class ButtonsPage {
-  constructor() {
-    // Selectores de los botones
-    this.doubleClickButton = '#doubleClickBtn'; // Botón para doble clic
-    this.rightClickButton = '#rightClickBtn'; // Botón para clic derecho
-    this.singleClickText = 'Click Me'; // Usamos el texto del botón en lugar del selector dinámico
-
-    // Selectores de los mensajes de confirmación
-    this.doubleClickMessage = '#doubleClickMessage';
-    this.rightClickMessage = '#rightClickMessage';
-    this.singleClickMessage = '#dynamicClickMessage';
+  // --- Botones ---
+  get botonDobleClick() {
+    return cy.get('#doubleClickBtn');
   }
 
-  // Navegar a la página de botones
-  visitarPagina() {
+  get botonClickDerecho() {
+    return cy.get('#rightClickBtn');
+  }
+
+  // El botón "Click Me" tiene un id aleatorio en cada carga: se localiza por su texto exacto
+  get botonClickDinamico() {
+    return cy.contains('button', /^Click Me$/);
+  }
+
+  // --- Mensajes de confirmación ---
+  get mensajeDobleClick() {
+    return cy.get('#doubleClickMessage');
+  }
+
+  get mensajeClickDerecho() {
+    return cy.get('#rightClickMessage');
+  }
+
+  get mensajeClickDinamico() {
+    return cy.get('#dynamicClickMessage');
+  }
+
+  // --- Acciones ---
+  visitar() {
     cy.visit('/buttons');
+    // Guard de carga (sincronización, no verificación de negocio)
+    cy.location('pathname').should('eq', '/buttons');
+    return this;
   }
 
-  // Métodos de acción sobre los botones
   hacerDobleClick() {
-    cy.get(this.doubleClickButton).should('be.visible').dblclick();
+    this.botonDobleClick.dblclick();
+    return this;
   }
 
   hacerClickDerecho() {
-    cy.get(this.rightClickButton).should('be.visible').rightclick();
+    this.botonClickDerecho.rightclick();
+    return this;
   }
 
   hacerClickUnico() {
-    cy.get('button')
-      .contains(/^Click Me$/)
-      .should('be.visible')
-      .click();
-  }
-
-  // Método para verificar mensajes de éxito después del clic
-  verificarMensaje(mensaje) {
-    cy.get(mensaje, { timeout: 10000 }).should('be.visible');
+    this.botonClickDinamico.click();
+    return this;
   }
 }

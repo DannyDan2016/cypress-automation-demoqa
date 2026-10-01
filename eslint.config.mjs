@@ -21,8 +21,7 @@ export default defineConfig([
     extends: [pluginCypress.configs.recommended],
     languageOptions: { globals: { ...globals.browser } },
     rules: {
-      // Temporalmente en "warn": las esperas fijas se eliminan en la rama de refactor
-      'cypress/no-unnecessary-waiting': 'warn',
+      'cypress/no-unnecessary-waiting': 'error',
       'cypress/no-force': 'warn',
       'cypress/no-pause': 'error',
       'cypress/no-debug': 'error',
