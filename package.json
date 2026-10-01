@@ -30,7 +30,9 @@
     "test:chrome": "cypress run --browser chrome",
     "cy:open": "cypress open",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
@@ -39,6 +41,7 @@
     "eslint": "10.11.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-cypress": "7.0.2",
-    "globals": "17.12.0"
+    "globals": "17.12.0",
+    "prettier": "3.9.9"
   }
 }
