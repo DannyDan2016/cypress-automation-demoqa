@@ -3,6 +3,10 @@ const { defineConfig } = require("cypress");
 module.exports = defineConfig({
   e2e: {
     baseUrl: "https://demoqa.com",
+    // Resolución de escritorio: con el viewport por defecto (1000x660) la tabla de
+    // Web Tables invade la columna lateral de anuncios y esta tapa sus botones.
+    viewportWidth: 1920,
+    viewportHeight: 1080,
     defaultCommandTimeout: 30000,
     retries: 1,
     browser: "chrome",
