@@ -1,0 +1,12 @@
+{
+  "$id": "usuario-creado",
+  "title": "CreateUserResult (POST /Account/v1/User → 201)",
+  "type": "object",
+  "required": ["userID", "username", "books"],
+  "additionalProperties": false,
+  "properties": {
+    "userID": { "type": "string", "pattern": "^[0-9a-f-]{36}$" },
+    "username": { "type": "string", "minLength": 1 },
+    "books": { "type": "array" }
+  }
+}

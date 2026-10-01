@@ -1,0 +1,11 @@
+{
+  "$id": "mensaje",
+  "title": "MessageModal (respuestas de error)",
+  "type": "object",
+  "required": ["code", "message"],
+  "additionalProperties": false,
+  "properties": {
+    "code": { "type": "string", "pattern": "^\\d+$" },
+    "message": { "type": "string", "minLength": 1 }
+  }
+}

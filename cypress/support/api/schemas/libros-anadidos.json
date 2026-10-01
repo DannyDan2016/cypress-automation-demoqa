@@ -1,0 +1,19 @@
+{
+  "$id": "libros-anadidos",
+  "title": "AddListOfBooks (POST /BookStore/v1/Books → 201)",
+  "type": "object",
+  "required": ["books"],
+  "additionalProperties": false,
+  "properties": {
+    "books": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["isbn"],
+        "additionalProperties": false,
+        "properties": { "isbn": { "type": "string", "pattern": "^\\d{13}$" } }
+      }
+    }
+  }
+}
