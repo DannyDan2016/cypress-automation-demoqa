@@ -29,7 +29,8 @@ export default defineConfig([
     },
   },
   {
-    files: ['cypress.config.js'],
+    // Código que corre en Node (configuración, cargador de datos y scripts)
+    files: ['cypress.config.js', 'config/**/*.js', 'scripts/**/*.js'],
     languageOptions: { globals: globals.node, sourceType: 'commonjs' },
   },
   {

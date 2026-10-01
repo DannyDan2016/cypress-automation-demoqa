@@ -1,6 +1,5 @@
 // Se carga automáticamente antes de cada spec (opción `supportFile`).
 import './commands';
-import 'cypress-mochawesome-reporter/register';
 
 // DemoQA carga scripts de terceros (Google Tag Manager, anuncios) que a veces lanzan
 // errores ajenos a la aplicación. Solo se ignoran esos errores conocidos: cualquier
