@@ -1,0 +1,24 @@
+# Check Box (/checkbox). Árbol rc-tree: los nodos se nombran por su título visible y
+# "#result" los lista en minúsculas.
+arbol:
+  raiz: Home
+  hijosRaiz: [Desktop, Documents, Downloads] # TC-ELEM-010
+
+casos:
+  padre_desktop: # TC-ELEM-012: marcar un padre marca sus hijos
+    marcar: [Desktop]
+    esperado:
+      marcados: [Desktop]
+      resultado: [desktop, notes, commands]
+
+  varios_nodos: # TC-ELEM-011
+    marcar: [Documents, Downloads, Desktop]
+    esperado:
+      marcados: [Documents, Downloads, Desktop]
+
+  desmarcar_documents: # TC-ELEM-014
+    marcar: [Documents]
+    desmarcar: [Documents]
+    esperado:
+      desmarcados: [Documents]
+      sinResultado: true
