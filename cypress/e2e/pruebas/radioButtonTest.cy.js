@@ -7,8 +7,8 @@ describe('Pruebas en la página de Radio Button', () => {
 
   // Antes de todas las pruebas, cargamos los datos de prueba
   before(() => {
-    cy.fixture('datosPrueba.json').then((data) => {
-      datosPrueba = data.radioButton;
+    cy.fixture('radio-button').then((data) => {
+      datosPrueba = data;
     });
   });
 
@@ -19,19 +19,9 @@ describe('Pruebas en la página de Radio Button', () => {
   });
 
   it('Debe seleccionar cada opción de radio button permitida y verificar su selección', () => {
-    datosPrueba.opciones.forEach((opcion, index) => {
-      if (opcion !== 'No') {
-        // Solo intentamos seleccionar Yes e Impressive
-        cy.log(`Seleccionando opción: ${opcion}`);
-
-        // Paso 1: Seleccionar el radio button permitido
-        radioButtonPage.seleccionarOpcion(opcion);
-
-        // Paso 2: Validar que el mensaje mostrado sea el correcto
-        const mensajeEsperado = datosPrueba[`mensaje${opcion}`];
-        cy.log(`Verificando mensaje: ${mensajeEsperado}`);
-        radioButtonPage.verificarMensajeSeleccionado(mensajeEsperado);
-      }
+    datosPrueba.opcionesHabilitadas.forEach(({ opcion, mensaje }) => {
+      radioButtonPage.seleccionarOpcion(opcion);
+      radioButtonPage.verificarMensajeSeleccionado(mensaje);
     });
   });
 

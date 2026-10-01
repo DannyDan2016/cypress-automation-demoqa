@@ -11,8 +11,8 @@ describe('Pruebas en la página de Web Tables', () => {
     webTablesPage = new WebTablesPage();
 
     // Cargar datos de prueba antes de cada test
-    cy.fixture('datosPrueba.json').then((data) => {
-      datos = data.formularios.webTables;
+    cy.fixture('web-tables').then((data) => {
+      datos = data;
     });
   });
 

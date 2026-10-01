@@ -9,9 +9,7 @@ describe('Pruebas en la página de CheckBox', () => {
     cy.visit('/checkbox');
     checkBoxPage = new CheckBoxPage();
 
-    cy.fixture('datosPrueba.json').then((data) => {
-      this.datos = data.checkbox;
-    });
+    cy.fixture('checkbox').as('datos');
   });
 
   it('Debe expandir la lista y seleccionar un solo elemento', function () {

@@ -10,8 +10,8 @@ describe('Pruebas en la página de Text Box', () => {
     cy.visit('/text-box');
     textBoxPage = new TextBoxPage();
 
-    cy.fixture('datosPrueba.json').then((data) => {
-      datos = data.formularios.textBox;
+    cy.fixture('text-box').then((data) => {
+      datos = data;
     });
   });
 
