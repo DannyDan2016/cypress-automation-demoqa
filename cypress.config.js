@@ -12,7 +12,16 @@ module.exports = defineConfig({
     viewportHeight: 1080,
     defaultCommandTimeout: 30000,
     retries: 1,
-    blockHosts: ['*google.com', '*facebook.com', '*ads.com'],
+    // Bloquea analítica y anuncios de terceros: no forman parte de la app y la ralentizan.
+    // Ojo: '*google.com' no cubría googletagmanager.com (no termina en google.com).
+    blockHosts: [
+      '*googletagmanager.com',
+      '*google-analytics.com',
+      '*googlesyndication.com',
+      '*doubleclick.net',
+      '*adservice.google.com',
+      '*facebook.com',
+    ],
 
     setupNodeEvents(on) {
       // El plugin registra su propio "before:run"/"after:run" (Cypress solo admite
