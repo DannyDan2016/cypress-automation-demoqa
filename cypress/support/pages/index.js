@@ -6,12 +6,14 @@ import { CheckBoxPage } from './elements/CheckBoxPage';
 import { RadioButtonPage } from './elements/RadioButtonPage';
 import { TextBoxPage } from './elements/TextBoxPage';
 import { WebTablesPage } from './elements/WebTablesPage';
+import { PracticeFormPage } from './forms/PracticeFormPage';
 
 export const textBoxPage = new TextBoxPage();
 export const checkBoxPage = new CheckBoxPage();
 export const radioButtonPage = new RadioButtonPage();
 export const webTablesPage = new WebTablesPage();
 export const buttonsPage = new ButtonsPage();
+export const practiceFormPage = new PracticeFormPage();
 
 const PAGES = {
   'Text Box': textBoxPage,
@@ -19,6 +21,7 @@ const PAGES = {
   'Radio Button': radioButtonPage,
   'Web Tables': webTablesPage,
   Buttons: buttonsPage,
+  'Practice Form': practiceFormPage,
 };
 
 export function pageByName(name) {
