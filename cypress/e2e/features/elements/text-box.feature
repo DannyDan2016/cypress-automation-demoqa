@@ -8,8 +8,30 @@ Característica: Text Box
   Antecedentes:
     Dado que estoy en la página "Text Box"
 
-  @smoke @tc-elem-001
-  Escenario: Enviar el formulario con datos válidos
-    Cuando completo Text Box con el caso "valido"
+  Esquema del escenario: Enviar datos válidos los muestra en la salida
+    Cuando completo Text Box con el caso "<caso>"
     Y envío el formulario de Text Box
-    Entonces la salida de Text Box coincide con el caso "valido"
+    Entonces la salida de Text Box coincide con el caso "<caso>"
+
+    @smoke @tc-elem-001
+    Ejemplos: Datos completos
+      | caso   |
+      | valido |
+
+    @tc-elem-005
+    Ejemplos: Unicode y HTML se muestran como texto literal
+      | caso                  |
+      | caracteres_especiales |
+
+  @negative @tc-elem-002
+  Esquema del escenario: Un email con formato inválido se marca y no genera salida
+    Cuando completo Text Box con el caso "<caso>"
+    Y envío el formulario de Text Box
+    Entonces el email de Text Box se marca como inválido
+    Y Text Box no muestra ninguna salida
+
+    Ejemplos:
+      | caso              |
+      | email_sin_dominio |
+      | email_sin_arroba  |
+      | email_sin_usuario |

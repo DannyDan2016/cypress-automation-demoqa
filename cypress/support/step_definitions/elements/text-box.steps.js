@@ -21,3 +21,13 @@ Then('la salida de Text Box coincide con el caso {string}', (caso) => {
     });
   });
 });
+
+Then('el email de Text Box se marca como inválido', () => {
+  cy.datos(DATA, 'validacion.claseCampoInvalido').then((clase) => {
+    textBoxPage.emailInput.should('have.class', clase);
+  });
+});
+
+Then('Text Box no muestra ninguna salida', () => {
+  textBoxPage.outputLines.should('not.exist');
+});
