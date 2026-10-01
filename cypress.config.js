@@ -11,13 +11,6 @@ const { resolverTags } = require('./config/tags');
 // en el sistema o en CI tienen prioridad: dotenv no las sobrescribe.
 require('dotenv').config({ quiet: true });
 
-// Secretos: van en `env` y desde los tests solo se leen con `cy.env([...])`
-// (no se exponen al navegador). Solo se incluyen los que estén definidos.
-function secretos() {
-  const valores = { bookUser: process.env.BOOK_USER, bookPass: process.env.BOOK_PASS };
-  return Object.fromEntries(Object.entries(valores).filter(([, valor]) => valor));
-}
-
 module.exports = defineConfig({
   // Electron está deprecado como navegador de pruebas en Cypress 16
   defaultBrowser: 'chrome',
@@ -52,7 +45,6 @@ module.exports = defineConfig({
       // Valores públicos, legibles con Cypress.expose(). `tags` lo lee el preprocesador de
       // Cucumber para filtrar escenarios: hay que fijarlo ANTES de registrar el plugin.
       config.expose = { ...config.expose, TEST_ENV: ambiente.nombre, tags: resolverTags(config) };
-      config.env = { ...config.env, ...secretos() };
 
       // Cucumber: registra before/after:run y genera los reportes HTML y JSON
       // (ver .cypress-cucumber-preprocessorrc.json). Es el único reporter de la suite.
