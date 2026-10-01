@@ -42,3 +42,12 @@ Característica: Book Store API - Cuenta
     Cuando borro su cuenta
     Entonces la API responde con el estado "sin_contenido"
     Y consultar su cuenta responde "no_autorizado" con el error "usuario_no_encontrado"
+
+  # Defecto real (verificado el 2026-10-01): con una contraseña errónea GenerateToken responde
+  # 200 con token null y status "Failed" en lugar de 401. Se comprueba el comportamiento
+  # correcto; @known-bug lo excluye del run por defecto (npm run test:known-bugs lo ejecuta).
+  @negative @known-bug @tc-api-009
+  Escenario: Generar un token con una contraseña errónea se rechaza como no autorizado
+    Dado que existe un usuario temporal
+    Cuando genero un token con una contraseña errónea
+    Entonces la API responde con el estado "no_autorizado"

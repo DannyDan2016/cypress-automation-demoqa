@@ -32,6 +32,14 @@ When('genero un token con sus credenciales', () => {
   });
 });
 
+When('genero un token con una contraseña errónea', () => {
+  cy.datos(API_DATA, 'contrasenas.erronea').then((password) => {
+    cy.get('@usuario').then(({ userName }) => {
+      accountApi.generateToken({ userName, password }).then(saveResponse);
+    });
+  });
+});
+
 When('borro su cuenta', () => {
   cy.get('@usuario').then(({ userId, token }) => {
     accountApi.deleteUser(userId, token).then((response) => {
