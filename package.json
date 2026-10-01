@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "cypress run --reporter mochawesome && npm run report",
-    "report": "npx mochawesome-merge cypress/reportes/*.json -o cypress/reportes/reporte-final.json && npx marge cypress/reportes/reporte-final.json -o cypress/reportes"
+    "test": "cypress run",
+    "test:chrome": "cypress run --browser chrome",
+    "cy:open": "cypress open"
   },
   "keywords": [],
   "author": "",
