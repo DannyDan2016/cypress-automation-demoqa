@@ -1,14 +1,12 @@
 export class CheckBoxPage {
 constructor() {
-    // Elemento para expandir la lista de checkboxes
-    this.expandButton = ".rct-collapse-btn";
+    // DemoQA usa ahora rc-tree: el primer "switcher" expande el nodo raíz (Home)
+    this.expandButton = ".rc-tree-switcher";
 
-    // Selector de las etiquetas de checkbox
-    this.checkboxLabel = ".rct-title";
-
-    // Íconos que indican si un checkbox está marcado o desmarcado
-    this.checkboxCheckIcon = ".rct-icon-check";
-    this.checkboxUncheckIcon = ".rct-icon-uncheck";
+    // Casilla de un nodo, identificada por su aria-label accesible ("Select <nombre>").
+    // Ojo: hacer clic en el título solo resalta el nodo, no lo marca.
+    this.checkbox = (nombreElemento) =>
+        `.rc-tree-checkbox[role="checkbox"][aria-label="Select ${nombreElemento}"]`;
 }
 
 /**
@@ -16,7 +14,7 @@ constructor() {
  */
 expandirLista() {
     cy.log("Expandiendo la lista de checkboxes...");
-    cy.get(this.expandButton).click();
+    cy.get(this.expandButton).first().click();
 }
 
 /**
@@ -25,7 +23,7 @@ expandirLista() {
  */
 seleccionarElemento(nombreElemento) {
     cy.log(`Seleccionando checkbox: ${nombreElemento}`);
-    cy.contains(this.checkboxLabel, nombreElemento).click();
+    cy.get(this.checkbox(nombreElemento)).click();
 }
 
 /**
@@ -34,10 +32,7 @@ seleccionarElemento(nombreElemento) {
  */
 verificarElementoSeleccionado(nombreElemento) {
     cy.log(`Verificando que el checkbox "${nombreElemento}" esté seleccionado`);
-    cy.contains(this.checkboxLabel, nombreElemento)
-    .parent()
-    .find(this.checkboxCheckIcon)
-    .should("exist");
+    cy.get(this.checkbox(nombreElemento)).should("have.attr", "aria-checked", "true");
 }
 
 /**
@@ -46,10 +41,7 @@ verificarElementoSeleccionado(nombreElemento) {
  */
 verificarElementoDeseleccionado(nombreElemento) {
     cy.log(`Verificando que el checkbox "${nombreElemento}" esté desmarcado`);
-    cy.contains(this.checkboxLabel, nombreElemento)
-    .parent()
-    .find(this.checkboxUncheckIcon)
-    .should("exist");
+    cy.get(this.checkbox(nombreElemento)).should("have.attr", "aria-checked", "false");
 }
 }
   
