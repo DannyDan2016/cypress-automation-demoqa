@@ -12,10 +12,11 @@ inputSalario: () => cy.get("#salary"),
 inputDepartamento: () => cy.get("#department"),
 botonEnviar: () => cy.get("#submit"),
 inputBusqueda: () => cy.get("#searchBox"),
-tablaCuerpo: () => cy.get(".rt-tbody"),
-filaUsuario: (nombre) => cy.contains(".rt-tbody .rt-tr", nombre), // Buscar usuario por nombre en la tabla
-botonEliminar: (nombre) => cy.contains(".rt-tbody .rt-tr", nombre).find('span[id^="delete-record-"]'),
-mensajeNoDatos: () => cy.get(".rt-noData") // Mensaje cuando no hay datos en la tabla
+// Tras el rediseño, DemoQA usa una <table> HTML (antes react-table con .rt-*)
+tablaCuerpo: () => cy.get(".web-tables-wrapper table tbody"),
+filasTabla: () => cy.get(".web-tables-wrapper table tbody tr"),
+filaUsuario: (nombre) => cy.contains(".web-tables-wrapper table tbody tr", nombre), // Buscar usuario por nombre en la tabla
+botonEliminar: (nombre) => cy.contains(".web-tables-wrapper table tbody tr", nombre).find('span[id^="delete-record-"]')
 };
 
 // Método para abrir el formulario de agregar un nuevo usuario
@@ -49,9 +50,10 @@ eliminarRegistro(nombre) {
 this.elements.botonEliminar(nombre).click();
 }
 
-// Método para verificar que un usuario fue eliminado
+// Método para verificar que un usuario fue eliminado: con la búsqueda aplicada,
+// la tabla queda sin filas (la nueva DemoQA ya no muestra "No rows found")
 verificarUsuarioEliminado() {
-this.elements.mensajeNoDatos().should("contain", "No rows found");
+this.elements.filasTabla().should("not.exist");
 }
 }
 
