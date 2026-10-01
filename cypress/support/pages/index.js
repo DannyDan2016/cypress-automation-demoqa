@@ -5,6 +5,7 @@ import { AlertsPage } from './alerts-frames-windows/AlertsPage';
 import { BrowserWindowsPage } from './alerts-frames-windows/BrowserWindowsPage';
 import { FramesPage } from './alerts-frames-windows/FramesPage';
 import { SamplePage } from './alerts-frames-windows/SamplePage';
+import { ProfilePage } from './bookstore/ProfilePage';
 import { ButtonsPage } from './elements/ButtonsPage';
 import { CheckBoxPage } from './elements/CheckBoxPage';
 import { DynamicPropertiesPage } from './elements/DynamicPropertiesPage';
@@ -24,6 +25,7 @@ export const alertsPage = new AlertsPage();
 export const browserWindowsPage = new BrowserWindowsPage();
 export const framesPage = new FramesPage();
 export const samplePage = new SamplePage();
+export const profilePage = new ProfilePage();
 
 const PAGES = {
   'Text Box': textBoxPage,
@@ -36,6 +38,7 @@ const PAGES = {
   Alerts: alertsPage,
   'Browser Windows': browserWindowsPage,
   Frames: framesPage,
+  Profile: profilePage,
 };
 
 export function pageByName(name) {
