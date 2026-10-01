@@ -12,6 +12,14 @@ casos:
     esperado:
       celdas: [Carlos, García, '30', carlos.garcia@example.com, '50000', QA]
 
+  edicion: # TC-ELEM-035: se edita un registro semilla
+    registro: Cierra
+    entrada:
+      salario: '99999'
+      departamento: Calidad
+    esperado:
+      celdas: [Cierra, Vega, '39', cierra@example.com, '99999', Calidad]
+
 busquedas:
   por_nombre_registrado: # TC-ELEM-037
     termino: Carlos

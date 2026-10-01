@@ -16,6 +16,12 @@ const register = (caso) => {
 When('registro en Web Tables el caso {string}', register);
 Given('que registré en Web Tables el caso {string}', register);
 
+When('edito en Web Tables el registro del caso {string}', (caso) => {
+  cy.datos(DATA, `casos.${caso}`).then(({ registro, entrada }) => {
+    webTablesPage.edit(registro).fillForm(entrada).submit();
+  });
+});
+
 When('busco en Web Tables según la búsqueda {string}', (busqueda) => {
   cy.datos(DATA, `busquedas.${busqueda}.termino`).then((termino) => {
     webTablesPage.search(termino);
