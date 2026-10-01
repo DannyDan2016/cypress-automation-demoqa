@@ -18,14 +18,11 @@ describe('Pruebas en la página de Web Tables', () => {
 
   it('Debe agregar un nuevo usuario y verificar su existencia en la tabla', () => {
     webTablesPage.abrirFormularioNuevoRegistro();
-    cy.screenshot('Paso_1_Formulario_Abierto');
 
     webTablesPage.llenarFormulario(datos);
-    cy.screenshot('Paso_2_Formulario_Completado');
 
     // Verificar que el usuario se agregó a la tabla
     webTablesPage.verificarRegistroEnTabla(datos.nombre);
-    cy.screenshot('Paso_3_Verificacion_Registro');
   });
 
   it('Debe buscar un usuario en la tabla', () => {
@@ -35,10 +32,8 @@ describe('Pruebas en la página de Web Tables', () => {
 
     // Buscar usuario
     webTablesPage.buscarUsuario(datos.nombre);
-    cy.screenshot('Paso_1_Busqueda_Usuario');
 
     webTablesPage.verificarRegistroEnTabla(datos.nombre);
-    cy.screenshot('Paso_2_Verificacion_Busqueda');
   });
 
   it('Debe eliminar un usuario y verificar que ya no está en la tabla', () => {
@@ -46,14 +41,11 @@ describe('Pruebas en la página de Web Tables', () => {
     webTablesPage.abrirFormularioNuevoRegistro();
     webTablesPage.llenarFormulario(datos);
     webTablesPage.buscarUsuario(datos.nombre);
-    cy.screenshot('Paso_1_Busqueda_Usuario');
 
     // Eliminar usuario
     webTablesPage.eliminarRegistro(datos.nombre);
-    cy.screenshot('Paso_2_Usuario_Eliminado');
 
     // Verificar que el usuario ya no está en la tabla
     webTablesPage.verificarUsuarioEliminado();
-    cy.screenshot('Paso_3_Verificacion_Eliminacion');
   });
 });

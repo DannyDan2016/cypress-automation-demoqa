@@ -26,14 +26,11 @@ describe('Pruebas en la página de Radio Button', () => {
 
         // Paso 1: Seleccionar el radio button permitido
         radioButtonPage.seleccionarOpcion(opcion);
-        cy.wait(500);
-        cy.screenshot(`Paso_${index + 1}_Seleccion_${opcion}`);
 
         // Paso 2: Validar que el mensaje mostrado sea el correcto
         const mensajeEsperado = datosPrueba[`mensaje${opcion}`];
         cy.log(`Verificando mensaje: ${mensajeEsperado}`);
         radioButtonPage.verificarMensajeSeleccionado(mensajeEsperado);
-        cy.screenshot(`Paso_${index + 1}_Verificacion_${opcion}`);
       }
     });
   });
