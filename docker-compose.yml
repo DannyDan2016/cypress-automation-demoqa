@@ -1,0 +1,22 @@
+# Ejecución reproducible de la suite en contenedor.
+#   docker compose build
+#   docker compose run --rm e2e
+#   TEST_ENV=qa docker compose run --rm e2e        (bash/zsh)
+#   $env:TEST_ENV="qa"; docker compose run --rm e2e (PowerShell)
+services:
+  e2e:
+    build: .
+    image: cypress-automation-demoqa:latest
+    # Opcional: si existe .env se inyecta en tiempo de ejecución (nunca entra en la imagen).
+    # Sin .env la suite funciona con los valores por defecto (TEST_ENV=prod).
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      # Prioridad: variable del shell > TEST_ENV del .env > prod
+      TEST_ENV: ${TEST_ENV:-prod}
+    volumes:
+      # El reporte HTML queda en ./reports/mochawesome del host
+      - ./reports:/e2e/reports
+    # Chrome usa /dev/shm; los 64 MB por defecto de Docker provocan cuelgues y crashes
+    shm_size: '2gb'
