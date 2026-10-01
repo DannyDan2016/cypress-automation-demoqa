@@ -1,16 +1,32 @@
 {
   "name": "cypress-automation-demoqa",
   "version": "1.0.0",
-  "main": "index.js",
+  "private": true,
+  "description": "Suite de pruebas E2E con Cypress y Page Object Model sobre DemoQA (portfolio de QA Automation).",
+  "keywords": [
+    "cypress",
+    "e2e",
+    "qa",
+    "automation",
+    "page-object-model",
+    "demoqa",
+    "mochawesome"
+  ],
+  "author": "Danny Parrado",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DannyDan2016/cypress-automation-demoqa.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DannyDan2016/cypress-automation-demoqa/issues"
+  },
+  "homepage": "https://github.com/DannyDan2016/cypress-automation-demoqa#readme",
   "scripts": {
     "test": "cypress run",
     "test:chrome": "cypress run --browser chrome",
     "cy:open": "cypress open"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "devDependencies": {
     "cypress": "^14.1.0",
     "cypress-mochawesome-reporter": "^3.8.2",
