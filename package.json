@@ -2,15 +2,17 @@
   "name": "cypress-automation-demoqa",
   "version": "1.0.0",
   "private": true,
-  "description": "Suite de pruebas E2E con Cypress y Page Object Model sobre DemoQA (portfolio de QA Automation).",
+  "description": "Suite E2E con Cypress, Cucumber (BDD en español), Page Object Model y datos en YAML sobre DemoQA (portfolio de QA Automation).",
   "keywords": [
     "cypress",
     "e2e",
     "qa",
     "automation",
+    "bdd",
+    "cucumber",
+    "gherkin",
     "page-object-model",
-    "demoqa",
-    "mochawesome"
+    "demoqa"
   ],
   "author": "Danny Parrado",
   "license": "MIT",
@@ -39,14 +41,17 @@
     "format:check": "prettier --check ."
   },
   "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "28.0.0",
+    "@bahmutov/cypress-esbuild-preprocessor": "2.2.8",
     "@eslint/js": "10.0.1",
     "cypress": "16.1.1",
-    "cypress-mochawesome-reporter": "5.0.0",
     "dotenv": "18.0.5",
+    "esbuild": "0.28.2",
     "eslint": "10.11.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-cypress": "7.0.2",
     "globals": "17.12.0",
+    "js-yaml": "5.4.2",
     "prettier": "3.9.9"
   }
 }
