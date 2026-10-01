@@ -1,12 +1,12 @@
 class UploadDownloadPage {
-    visitar() {
+  visitar() {
     cy.visit('/upload-download');
-    }
-    subirArchivo(ruta) {
+  }
+  subirArchivo(ruta) {
     cy.get('#uploadFile').attachFile(ruta);
-    }
-    descargarArchivo() {
+  }
+  descargarArchivo() {
     cy.get('#downloadButton').click();
-    }
+  }
 }
 export default new UploadDownloadPage();

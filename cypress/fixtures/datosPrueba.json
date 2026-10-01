@@ -1,57 +1,57 @@
 {
-"usuarios": [
+  "usuarios": [
     {
-    "usuario": "testUser",
-    "clave": "testPassword123"
+      "usuario": "testUser",
+      "clave": "testPassword123"
     },
     {
-    "usuario": "qaTester",
-    "clave": "SecurePass456!"
+      "usuario": "qaTester",
+      "clave": "SecurePass456!"
     }
-],
-"libros": [
+  ],
+  "libros": [
     {
-    "titulo": "Git Pocket Guide"
+      "titulo": "Git Pocket Guide"
     },
     {
-    "titulo": "Learning JavaScript Design Patterns"
+      "titulo": "Learning JavaScript Design Patterns"
     }
-],
-"formularios": {
+  ],
+  "formularios": {
     "textBox": {
-    "nombre": "Juan Pérez",
-    "email": "juan.perez@example.com",
-    "direccion": "Calle 123, Ciudad, País",
-    "direccionPermanente": "Avenida 456, Ciudad, País"
+      "nombre": "Juan Pérez",
+      "email": "juan.perez@example.com",
+      "direccion": "Calle 123, Ciudad, País",
+      "direccionPermanente": "Avenida 456, Ciudad, País"
     },
     "webTables": {
-    "nombre": "Carlos",
-    "apellido": "García",
-    "edad": "30",
-    "email": "carlos.lopez@example.com",
-    "salario": "50000",
-    "departamento": "QA"
+      "nombre": "Carlos",
+      "apellido": "García",
+      "edad": "30",
+      "email": "carlos.lopez@example.com",
+      "salario": "50000",
+      "departamento": "QA"
     }
-},
-"botones": {
+  },
+  "botones": {
     "mensajesEsperados": {
-    "dobleClick": "You have done a double click",
-    "clickDerecho": "You have done a right click",
-    "clickUnico": "You have done a dynamic click"
+      "dobleClick": "You have done a double click",
+      "clickDerecho": "You have done a right click",
+      "clickUnico": "You have done a dynamic click"
     }
-},
-"alertas": {
+  },
+  "alertas": {
     "mensajeAlerta": "You clicked a button"
-},
-"checkbox": {
+  },
+  "checkbox": {
     "elementoSeleccionado": "Desktop",
     "elementosMultiples": ["Documents", "Downloads", "Desktop"],
     "elementoParaDeseleccionar": "Documents"
-},
-"radioButton": {
+  },
+  "radioButton": {
     "opciones": ["Yes", "Impressive", "No"],
     "mensajeYes": "You have selected Yes",
     "mensajeImpressive": "You have selected Impressive",
     "mensajeNo": "You have selected No"
-}
+  }
 }

@@ -15,21 +15,18 @@
 
 // Import commands.js using ES2015 syntax:
 
-Cypress.on("uncaught:exception", (err, runnable) => {
-  console.warn("Error capturado:", err.message);
+Cypress.on('uncaught:exception', (err) => {
+  console.warn('Error capturado:', err.message);
   return false; // 🔥 Ignorar errores de scripts externos
 });
 
 beforeEach(() => {
-  cy.intercept("GET", "**/*", (req) => {
-    if (req.url.includes("ads") || req.url.includes("tracking")) {
+  cy.intercept('GET', '**/*', (req) => {
+    if (req.url.includes('ads') || req.url.includes('tracking')) {
       req.destroy(); // ❌ Bloquea scripts de rastreo
     }
-  }).as("blockExternalScripts");
+  }).as('blockExternalScripts');
 });
 
-
-  
-import './commands'
-import "cypress-mochawesome-reporter/register";
-
+import './commands';
+import 'cypress-mochawesome-reporter/register';

@@ -1,12 +1,12 @@
 class ModalDialogsPage {
-    visitar() {
+  visitar() {
     cy.visit('/modal-dialogs');
-    }
-    abrirModalPequeno() {
+  }
+  abrirModalPequeno() {
     cy.get('#showSmallModal').click();
-    }
-    cerrarModal() {
+  }
+  cerrarModal() {
     cy.get('#closeSmallModal').click();
-    }
+  }
 }
 export default new ModalDialogsPage();

@@ -1,12 +1,12 @@
 class DynamicPropertiesPage {
-    visitar() {
+  visitar() {
     cy.visit('/dynamic-properties');
-    }
-    esperarBotonHabilitado() {
+  }
+  esperarBotonHabilitado() {
     cy.get('#enableAfter').should('be.enabled');
-    }
-    verificarCambioDeColor() {
+  }
+  verificarCambioDeColor() {
     cy.get('#colorChange').should('have.class', 'text-danger');
-    }
+  }
 }
 export default new DynamicPropertiesPage();

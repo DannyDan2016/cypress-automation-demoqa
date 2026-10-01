@@ -1,15 +1,15 @@
 export class TextBoxPage {
   constructor() {
     this.selectors = {
-      nombreInput: "#userName",
-      emailInput: "#userEmail",
-      direccionActualInput: "#currentAddress",
-      direccionPermanenteInput: "#permanentAddress",
-      botonEnviar: "#submit",
-      nombreSalida: "#name",
-      emailSalida: "#email",
-      direccionActualSalida: ".border > #currentAddress",
-      direccionPermanenteSalida: ".border > #permanentAddress"
+      nombreInput: '#userName',
+      emailInput: '#userEmail',
+      direccionActualInput: '#currentAddress',
+      direccionPermanenteInput: '#permanentAddress',
+      botonEnviar: '#submit',
+      nombreSalida: '#name',
+      emailSalida: '#email',
+      direccionActualSalida: '.border > #currentAddress',
+      direccionPermanenteSalida: '.border > #permanentAddress',
     };
   }
 
