@@ -1,5 +1,4 @@
 const { defineConfig } = require("cypress");
-const fs = require("fs");
 
 module.exports = defineConfig({
   e2e: {
@@ -11,33 +10,10 @@ module.exports = defineConfig({
     experimentalStudio: true,
     blockHosts: ["*google.com", "*facebook.com", "*ads.com"],
 
-    // Desactiva la eliminación de assets antes de correr pruebas para evitar errores de archivos bloqueados
-    trashAssetsBeforeRuns: false,
-
     setupNodeEvents(on, config) {
-      on("before:run", () => {
-        const reportsPath = "cypress/reports";
-        const screenshotsPath = "cypress/reports/screenshots";
-        const videosPath = "cypress/reports/videos";
-
-        try {
-          if (fs.existsSync(reportsPath)) {
-            fs.rmSync(reportsPath, { recursive: true, force: true });
-            console.log("Carpeta 'reports' eliminada antes de la ejecución.");
-          }
-          if (fs.existsSync(screenshotsPath)) {
-            fs.rmSync(screenshotsPath, { recursive: true, force: true });
-            console.log("Screenshots eliminados antes de la ejecución.");
-          }
-          if (fs.existsSync(videosPath)) {
-            fs.rmSync(videosPath, { recursive: true, force: true });
-            console.log("Videos eliminados antes de la ejecución.");
-          }
-        } catch (error) {
-          console.warn(`No se pudo eliminar la carpeta de reportes: ${error.message}`);
-        }
-      });
-
+      // El plugin registra su propio "before:run"/"after:run" (Cypress solo admite
+      // un handler por evento). Con overwrite por defecto, el "before:run" del plugin
+      // vacía reportDir antes de cada ejecución, así que no hace falta limpiarlo a mano.
       require("cypress-mochawesome-reporter/plugin")(on);
     },
   },
@@ -49,16 +25,15 @@ module.exports = defineConfig({
   reporter: "cypress-mochawesome-reporter",
   reporterOptions: {
     reportDir: "cypress/reports",
-    overwrite: false, // No sobrescribir para evitar el error EBUSY
     html: true,
     json: true,
     inline: true, // Inserta imágenes y videos en el reporte
     embeddedScreenshots: true, // Inserta screenshots en el reporte
     charts: true,
-    autoOpen: true, // Abre el reporte automáticamente
+    autoOpen: false, // No abrir el navegador al terminar (rompe ejecuciones en CI)
   },
 
-  trashAssetsBeforeRuns: false, // Evita la eliminación automática de reportes
+  trashAssetsBeforeRuns: false, // La limpieza de cypress/reports la hace el plugin del reporter
   screenshotsFolder: "cypress/reports/screenshots",
   videosFolder: "cypress/reports/videos",
   includeShadowDom: true,
