@@ -1,0 +1,28 @@
+# Secretos: el .env NUNCA debe entrar en la imagen (se inyecta en tiempo de ejecución)
+.env
+.env.*
+!.env.example
+
+# Dependencias: se instalan dentro de la imagen con npm ci
+node_modules/
+
+# Artefactos generados por las ejecuciones
+reports/
+cypress/reports/
+cypress/screenshots/
+cypress/videos/
+cypress/downloads/
+
+# Control de versiones, editores y SO
+.git/
+.gitattributes
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.log
+
+# Archivos de Docker (no los necesita la suite dentro del contenedor)
+Dockerfile
+docker-compose.yml
+.dockerignore

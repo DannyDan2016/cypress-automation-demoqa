@@ -31,6 +31,7 @@
     "test:dev": "cypress run --expose TEST_ENV=dev",
     "test:qa": "cypress run --expose TEST_ENV=qa",
     "test:prod": "cypress run --expose TEST_ENV=prod",
+    "test:docker": "docker compose run --rm --build e2e",
     "cy:open": "cypress open",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
