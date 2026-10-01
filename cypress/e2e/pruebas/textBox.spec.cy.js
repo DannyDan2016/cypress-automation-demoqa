@@ -1,43 +1,21 @@
 /// <reference types="cypress" />
 
-import { TextBoxPage } from '../../page/TextBoxPage'; // Verifica la ruta correcta
+import { TextBoxPage } from '../../page/TextBoxPage';
 
 describe('Pruebas en la página de Text Box', () => {
-  let textBoxPage;
-  let datos;
+  const textBoxPage = new TextBoxPage();
 
   beforeEach(() => {
-    cy.visit('/text-box');
-    textBoxPage = new TextBoxPage();
-
-    cy.fixture('text-box').then((data) => {
-      datos = data;
-    });
+    cy.fixture('text-box').as('datos');
+    textBoxPage.visitar();
   });
 
-  it('Debe completar el formulario y verificar los datos ingresados', () => {
-    cy.wrap(datos).then((datos) => {
-      textBoxPage.escribirNombre(datos.nombre);
+  it('Debe completar el formulario y verificar los datos ingresados', function () {
+    textBoxPage.completarFormulario(this.datos).enviar();
 
-      textBoxPage.escribirEmail(datos.email);
-
-      textBoxPage.escribirDireccionActual(datos.direccion);
-
-      textBoxPage.escribirDireccionPermanente(datos.direccionPermanente);
-
-      textBoxPage.clickEnBotonEnviar();
-
-      // Verificación de los datos enviados
-      textBoxPage.verificarNombreSalida().should('exist').and('contain', datos.nombre);
-
-      textBoxPage.verificarEmailSalida().should('exist').and('contain', datos.email);
-
-      textBoxPage.verificarDireccionActualSalida().should('exist').and('contain', datos.direccion);
-
-      textBoxPage
-        .verificarDireccionPermanenteSalida()
-        .should('exist')
-        .and('contain', datos.direccionPermanente);
-    });
+    textBoxPage.nombreSalida.should('have.text', `Name:${this.datos.nombre}`);
+    textBoxPage.emailSalida.should('have.text', `Email:${this.datos.email}`);
+    textBoxPage.direccionActualSalida.should('contain.text', this.datos.direccion);
+    textBoxPage.direccionPermanenteSalida.should('contain.text', this.datos.direccionPermanente);
   });
 });
