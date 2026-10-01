@@ -28,6 +28,9 @@
   "scripts": {
     "test": "cypress run",
     "test:chrome": "cypress run --browser chrome",
+    "test:dev": "cypress run --expose TEST_ENV=dev",
+    "test:qa": "cypress run --expose TEST_ENV=qa",
+    "test:prod": "cypress run --expose TEST_ENV=prod",
     "cy:open": "cypress open",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
