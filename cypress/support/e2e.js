@@ -15,7 +15,7 @@
 
 // Import commands.js using ES2015 syntax:
 
-Cypress.on('uncaught:exception', (err, runnable) => {
+Cypress.on('uncaught:exception', (err) => {
   console.warn('Error capturado:', err.message);
   return false; // 🔥 Ignorar errores de scripts externos
 });

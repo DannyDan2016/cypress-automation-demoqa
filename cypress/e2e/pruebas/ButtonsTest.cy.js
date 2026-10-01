@@ -4,15 +4,10 @@ import { ButtonsPage } from '../../page/ButtonsPage'; // Verifica la ruta correc
 
 describe('Pruebas en la página de botones', () => {
   let buttonsPage;
-  let datos;
 
   beforeEach(() => {
     cy.visit('/buttons');
     buttonsPage = new ButtonsPage();
-
-    cy.fixture('datosPrueba.json').then((data) => {
-      datos = data.botones;
-    });
   });
 
   it('Debe hacer doble clic en el botón y verificar el mensaje', function () {
