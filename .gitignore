@@ -1,1 +1,21 @@
-/node_modules
+# --- Comunes ---
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.log
+
+# --- Node ---
+node_modules/
+npm-debug.log*
+
+# --- Cypress: artefactos generados en cada ejecución ---
+cypress/reports/
+cypress/screenshots/
+cypress/videos/
+cypress/downloads/
+reports/
