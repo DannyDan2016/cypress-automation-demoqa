@@ -1,6 +1,9 @@
 const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
+  // Electron está deprecado como navegador de pruebas en Cypress 16
+  defaultBrowser: "chrome",
+
   e2e: {
     baseUrl: "https://demoqa.com",
     // Resolución de escritorio: con el viewport por defecto (1000x660) la tabla de
@@ -9,36 +12,24 @@ module.exports = defineConfig({
     viewportHeight: 1080,
     defaultCommandTimeout: 30000,
     retries: 1,
-    browser: "chrome",
-    chromeWebSecurity: false,
-    experimentalStudio: true,
     blockHosts: ["*google.com", "*facebook.com", "*ads.com"],
 
-    setupNodeEvents(on, config) {
+    setupNodeEvents(on) {
       // El plugin registra su propio "before:run"/"after:run" (Cypress solo admite
-      // un handler por evento). Con overwrite por defecto, el "before:run" del plugin
-      // vacía reportDir antes de cada ejecución, así que no hace falta limpiarlo a mano.
+      // un handler por evento) y vacía reportDir antes de cada ejecución.
       require("cypress-mochawesome-reporter/plugin")(on);
     },
   },
 
-  env: {
-    nombreReporte: "reporte-pruebas",
-  },
-
   reporter: "cypress-mochawesome-reporter",
   reporterOptions: {
-    reportDir: "cypress/reports",
-    html: true,
-    json: true,
-    inline: true, // Inserta imágenes y videos en el reporte
-    embeddedScreenshots: true, // Inserta screenshots en el reporte
+    reportDir: "reports/mochawesome",
+    reportPageTitle: "DemoQA - Pruebas E2E con Cypress",
     charts: true,
+    embeddedScreenshots: true, // Incrusta las capturas en el HTML
+    inlineAssets: true, // Genera un único HTML autocontenido
     autoOpen: false, // No abrir el navegador al terminar (rompe ejecuciones en CI)
   },
 
-  trashAssetsBeforeRuns: false, // La limpieza de cypress/reports la hace el plugin del reporter
-  screenshotsFolder: "cypress/reports/screenshots",
-  videosFolder: "cypress/reports/videos",
   includeShadowDom: true,
 });
