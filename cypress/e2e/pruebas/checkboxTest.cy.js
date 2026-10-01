@@ -1,44 +1,40 @@
 /// <reference types="cypress" />
 
-import { CheckBoxPage } from '../../page/CheckBoxPage'; // Verifica la ruta correcta
+import { CheckBoxPage } from '../../page/CheckBoxPage';
 
 describe('Pruebas en la página de CheckBox', () => {
-  let checkBoxPage;
+  const checkBoxPage = new CheckBoxPage();
 
-  beforeEach(function () {
-    cy.visit('/checkbox');
-    checkBoxPage = new CheckBoxPage();
-
+  beforeEach(() => {
     cy.fixture('checkbox').as('datos');
+    checkBoxPage.visitar().expandirLista();
   });
 
   it('Debe expandir la lista y seleccionar un solo elemento', function () {
-    checkBoxPage.expandirLista();
+    checkBoxPage.alternarElemento(this.datos.elementoSeleccionado);
 
-    checkBoxPage.seleccionarElemento(this.datos.elementoSeleccionado);
-
-    checkBoxPage.verificarElementoSeleccionado(this.datos.elementoSeleccionado);
+    checkBoxPage
+      .casilla(this.datos.elementoSeleccionado)
+      .should('have.attr', 'aria-checked', 'true');
   });
 
   it('Debe seleccionar varios elementos y verificar la selección', function () {
-    checkBoxPage.expandirLista();
-
     this.datos.elementosMultiples.forEach((elemento) => {
-      checkBoxPage.seleccionarElemento(elemento);
+      checkBoxPage.alternarElemento(elemento);
     });
 
     this.datos.elementosMultiples.forEach((elemento) => {
-      checkBoxPage.verificarElementoSeleccionado(elemento);
+      checkBoxPage.casilla(elemento).should('have.attr', 'aria-checked', 'true');
     });
   });
 
   it('Debe deseleccionar un elemento y validar que se quitó la selección', function () {
-    checkBoxPage.expandirLista();
+    const elemento = this.datos.elementoParaDeseleccionar;
 
-    checkBoxPage.seleccionarElemento(this.datos.elementoParaDeseleccionar);
+    checkBoxPage.alternarElemento(elemento);
+    checkBoxPage.casilla(elemento).should('have.attr', 'aria-checked', 'true');
 
-    checkBoxPage.seleccionarElemento(this.datos.elementoParaDeseleccionar);
-
-    checkBoxPage.verificarElementoDeseleccionado(this.datos.elementoParaDeseleccionar);
+    checkBoxPage.alternarElemento(elemento);
+    checkBoxPage.casilla(elemento).should('have.attr', 'aria-checked', 'false');
   });
 });
