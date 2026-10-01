@@ -1,14 +1,14 @@
 class AutomationPracticeFormPage {
-    visitar() {
+  visitar() {
     cy.visit('/automation-practice-form');
-    }
-    llenarFormulario(datos) {
+  }
+  llenarFormulario(datos) {
     Object.entries(datos).forEach(([campo, valor]) => {
-        cy.get(`[name="${campo}"]`).type(valor);
+      cy.get(`[name="${campo}"]`).type(valor);
     });
-    }
-    enviarFormulario() {
+  }
+  enviarFormulario() {
     cy.get('#submit').click();
-    }
+  }
 }
 export default new AutomationPracticeFormPage();

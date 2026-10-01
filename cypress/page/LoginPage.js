@@ -1,13 +1,13 @@
 class LoginPage {
-    visitar() {
+  visitar() {
     cy.visit('/login');
-    }
-    ingresarCredenciales(usuario, clave) {
+  }
+  ingresarCredenciales(usuario, clave) {
     cy.get('#userName').type(usuario);
     cy.get('#password').type(clave);
-    }
-    iniciarSesion() {
+  }
+  iniciarSesion() {
     cy.get('#login').click();
-    }
+  }
 }
 export default new LoginPage();

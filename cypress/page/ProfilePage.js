@@ -1,11 +1,11 @@
 class ProfilePage {
-    visitar() {
+  visitar() {
     cy.visit('/profile');
-    }
-    eliminarLibro(libro) {
+  }
+  eliminarLibro(libro) {
     cy.contains('.rt-tr', libro).within(() => {
-        cy.get('.text-danger').click();
+      cy.get('.text-danger').click();
     });
-    }
+  }
 }
 export default new ProfilePage();

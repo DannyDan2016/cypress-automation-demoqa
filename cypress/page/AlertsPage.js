@@ -1,12 +1,12 @@
 class AlertsPage {
-    visitar() {
+  visitar() {
     cy.visit('/alerts');
-    }
-    activarAlerta() {
+  }
+  activarAlerta() {
     cy.get('#alertButton').click();
-    }
-    aceptarAlertaTiempo() {
+  }
+  aceptarAlertaTiempo() {
     cy.get('#timerAlertButton').click();
-    }
+  }
 }
 export default new AlertsPage();

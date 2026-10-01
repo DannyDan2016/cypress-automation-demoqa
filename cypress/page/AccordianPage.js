@@ -1,9 +1,9 @@
 class AccordianPage {
-    visitar() {
+  visitar() {
     cy.visit('/accordian');
-    }
-    expandirSeccion(seccion) {
+  }
+  expandirSeccion(seccion) {
     cy.contains('.card-header', seccion).click();
-    }
+  }
 }
 export default new AccordianPage();
