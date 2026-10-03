@@ -1,7 +1,0 @@
-{
-  "opcionesHabilitadas": [
-    { "opcion": "Yes", "mensaje": "You have selected Yes" },
-    { "opcion": "Impressive", "mensaje": "You have selected Impressive" }
-  ],
-  "opcionDeshabilitada": "No"
-}

@@ -1,0 +1,15 @@
+# Text Box (/text-box). Entradas del formulario y salida esperada en #output.
+# Los textos esperados son literales de la UI, con sus erratas ("Permananet").
+casos:
+  valido: # TC-ELEM-001
+    entrada:
+      nombre: Juan Pérez
+      email: juan.perez@example.com
+      direccionActual: Calle 123, Bogotá
+      direccionPermanente: Avenida 456, Medellín
+    esperado:
+      salida:
+        nombre: 'Name:Juan Pérez'
+        email: 'Email:juan.perez@example.com'
+        direccionActual: 'Current Address :Calle 123, Bogotá'
+        direccionPermanente: 'Permananet Address :Avenida 456, Medellín' # errata real del sitio

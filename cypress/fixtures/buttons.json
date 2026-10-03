@@ -1,7 +1,0 @@
-{
-  "mensajesEsperados": {
-    "dobleClick": "You have done a double click",
-    "clickDerecho": "You have done a right click",
-    "clickUnico": "You have done a dynamic click"
-  }
-}
