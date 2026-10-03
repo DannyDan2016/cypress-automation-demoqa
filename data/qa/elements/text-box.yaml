@@ -1,0 +1,10 @@
+# Override de ejemplo para el ambiente qa: solo lo que cambia respecto a data/comun.
+# En qa se usa un correo propio para distinguir los datos creados en ese ambiente.
+# Nota: DemoQA rechaza los alias con "+" (juan.perez+qa@...), aunque son válidos.
+casos:
+  valido:
+    entrada:
+      email: juan.perez.qa@example.com
+    esperado:
+      salida:
+        email: 'Email:juan.perez.qa@example.com'

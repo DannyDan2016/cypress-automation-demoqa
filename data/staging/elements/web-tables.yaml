@@ -1,0 +1,8 @@
+# Override de ejemplo para el ambiente staging: el registro de alta usa un departamento
+# propio del ambiente. El resto de valores se hereda de data/comun/elements/web-tables.yaml.
+casos:
+  alta_valida:
+    entrada:
+      departamento: Staging
+    esperado:
+      celdas: [Carlos, García, '30', carlos.garcia@example.com, '50000', Staging]

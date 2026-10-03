@@ -1,0 +1,11 @@
+# Radio Button (/radio-button). La clave es el identificador del caso en los .feature;
+# `etiqueta` es el texto visible de la opción.
+opciones:
+  si: # TC-ELEM-020
+    etiqueta: 'Yes'
+    mensaje: You have selected Yes
+  impresionante: # TC-ELEM-020
+    etiqueta: Impressive
+    mensaje: You have selected Impressive
+  no: # TC-ELEM-021: deshabilitada
+    etiqueta: 'No'

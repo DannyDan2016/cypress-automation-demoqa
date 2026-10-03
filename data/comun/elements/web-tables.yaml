@@ -1,0 +1,19 @@
+# Web Tables (/webtables). `celdas` sigue el orden de las columnas de la tabla:
+# First Name, Last Name, Age, Email, Salary, Department.
+casos:
+  alta_valida: # TC-ELEM-031, TC-ELEM-036, TC-ELEM-037
+    entrada:
+      nombre: Carlos
+      apellido: García
+      email: carlos.garcia@example.com
+      edad: '30'
+      salario: '50000'
+      departamento: QA
+    esperado:
+      celdas: [Carlos, García, '30', carlos.garcia@example.com, '50000', QA]
+
+busquedas:
+  por_nombre_registrado: # TC-ELEM-037
+    termino: Carlos
+    esperado:
+      filas: [Carlos]

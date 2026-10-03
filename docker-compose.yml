@@ -3,6 +3,7 @@
 #   docker compose run --rm e2e
 #   TEST_ENV=qa docker compose run --rm e2e        (bash/zsh)
 #   $env:TEST_ENV="qa"; docker compose run --rm e2e (PowerShell)
+#   docker compose run --rm -e "TAGS=@smoke and not @known-bug" e2e   (filtrar por tags)
 services:
   e2e:
     build: .
@@ -15,8 +16,10 @@ services:
     environment:
       # Prioridad: variable del shell > TEST_ENV del .env > prod
       TEST_ENV: ${TEST_ENV:-prod}
+      # Expresión de tags de Cucumber; vacía = valor por defecto ("not @known-bug")
+      TAGS: ${TAGS:-}
     volumes:
-      # El reporte HTML queda en ./reports/mochawesome del host
+      # El reporte de Cucumber queda en ./reports/cucumber del host (capturas en ./reports/screenshots)
       - ./reports:/e2e/reports
     # Chrome usa /dev/shm; los 64 MB por defecto de Docker provocan cuelgues y crashes
     shm_size: '2gb'

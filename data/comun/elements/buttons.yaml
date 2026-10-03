@@ -1,0 +1,5 @@
+# Buttons (/buttons). Mensaje que muestra cada tipo de clic.
+mensajes:
+  doble_clic: You have done a double click # TC-ELEM-050
+  clic_derecho: You have done a right click # TC-ELEM-051
+  clic_dinamico: You have done a dynamic click # TC-ELEM-052
