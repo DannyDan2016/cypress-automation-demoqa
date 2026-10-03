@@ -1,0 +1,39 @@
+# Actualizaciones automáticas de dependencias (PR semanales con Conventional Commits).
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: build(deps)
+    groups:
+      # Menores y parches de desarrollo en un único PR
+      dependencias-menores:
+        dependency-type: development
+        update-types: [minor, patch]
+    ignore:
+      # cypress se actualiza desde la imagen cypress/included del Dockerfile (ecosistema
+      # docker): ese PR debe subir también package.json, o el job "calidad" lo rechaza.
+      - dependency-name: cypress
+
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    commit-message:
+      prefix: build(docker)
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    commit-message:
+      prefix: ci(deps)
+    groups:
+      actions:
+        patterns: ['*']
