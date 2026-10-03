@@ -5,3 +5,9 @@ import { pageByName } from '../pages';
 Given('que estoy en la página {string}', (name) => {
   pageByName(name).visit();
 });
+
+// Congela setTimeout/setInterval/Date del navegador; el tiempo avanza solo con cy.tick().
+// Si se usa antes de visitar una página, también controla los temporizadores de su carga.
+Given('que controlo el reloj del navegador', () => {
+  cy.clock();
+});

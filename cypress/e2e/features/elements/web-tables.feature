@@ -13,6 +13,11 @@ Característica: Web Tables
     Cuando registro en Web Tables el caso "alta_valida"
     Entonces la tabla muestra la fila del caso "alta_valida"
 
+  @tc-elem-035
+  Escenario: Editar un registro actualiza su fila
+    Cuando edito en Web Tables el registro del caso "edicion"
+    Entonces la tabla muestra la fila del caso "edicion"
+
   @tc-elem-037
   Escenario: Buscar por nombre filtra la tabla
     Dado que registré en Web Tables el caso "alta_valida"

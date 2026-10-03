@@ -1,0 +1,32 @@
+# Book Store API. Los usuarios se crean y se borran en cada escenario (nombre único con este
+# prefijo). Las contraseñas son de usuarios efímeros de prueba, no secretos.
+usuarios:
+  prefijo: qa_cy_
+
+contrasenas:
+  valida: 'Portfolio#2026'
+  erronea: 'Incorrecta#2026'
+  # TC-API-005: incumplen la política (mayúscula, minúscula, dígito, especial, 8+ caracteres)
+  corta: 'Ab#1'
+  sin_mayuscula: 'portfolio#2026'
+  sin_digito: 'Portfolio#abc'
+  sin_especial: 'Portfolio2026'
+
+estados:
+  ok: 200
+  creado: 201
+  sin_contenido: 204
+  solicitud_incorrecta: 400
+  no_autorizado: 401
+
+errores:
+  politica_contrasena:
+    code: '1300'
+    message: "Passwords must have at least one non alphanumeric character, one digit ('0'-'9'), one uppercase ('A'-'Z'), one lowercase ('a'-'z'), one special character and Password must be eight characters or longer."
+  usuario_no_encontrado:
+    code: '1207'
+    message: User not found!
+
+token:
+  estado: Success
+  resultado: User authorized successfully.

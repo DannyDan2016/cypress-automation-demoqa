@@ -25,6 +25,24 @@ export function expectTextsInAnyOrder(chainable, expected) {
   });
 }
 
+/**
+ * Filas de dos columnas (etiqueta | valor) cuyo contenido es exactamente el mapa `expected`
+ * (p. ej. la tabla Label/Values de un modal de confirmación).
+ */
+export function expectKeyValueRows(chainable, expected) {
+  const normalized = Object.fromEntries(
+    Object.entries(expected).map(([key, value]) => [normalize(key), normalize(String(value))]),
+  );
+  return chainable.should(($rows) => {
+    const actual = Object.fromEntries(
+      [...$rows].map((row) =>
+        [...row.cells].slice(0, 2).map((cell) => normalize(cell.textContent)),
+      ),
+    );
+    expect(actual).to.deep.equal(normalized);
+  });
+}
+
 /** El campo no supera la validación nativa de HTML5 (`validity.valid === false`). */
 export function expectInvalid(chainable) {
   return chainable.should(($field) => {

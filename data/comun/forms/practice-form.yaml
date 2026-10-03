@@ -1,0 +1,40 @@
+# Practice Form (/automation-practice-form). `foto` es un archivo de cypress/fixtures/archivos.
+# `esperado.tabla` es la tabla Label → Values del modal de confirmación, literal de la UI.
+confirmacion:
+  titulo: Thanks for submitting the form
+
+validacion:
+  claseFormulario: was-validated
+
+casos:
+  completo: # TC-FORM-001
+    entrada:
+      nombre: Laura
+      apellido: Gómez
+      email: laura.gomez@example.com
+      genero: Female
+      movil: '3001234567'
+      fechaNacimiento: { dia: 15, mes: May, anio: 1990 }
+      materias: [Maths, Computer Science]
+      aficiones: [Sports, Music]
+      foto: foto-perfil.png
+      direccion: Calle 10 No. 20-30, Bogotá
+      estado: NCR
+      ciudad: Noida
+    esperado:
+      tabla:
+        Student Name: Laura Gómez
+        Student Email: laura.gomez@example.com
+        Gender: Female
+        Mobile: '3001234567'
+        Date of Birth: 15 May,1990
+        Subjects: Maths, Computer Science
+        Hobbies: Sports, Music
+        Picture: foto-perfil.png
+        Address: Calle 10 No. 20-30, Bogotá
+        State and City: NCR Noida
+
+  vacio: # TC-FORM-003
+    entrada: {}
+    esperado:
+      camposInvalidos: [nombre, apellido, genero, movil]
