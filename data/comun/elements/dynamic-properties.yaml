@@ -1,0 +1,3 @@
+# Dynamic Properties (/dynamic-properties). Los botones cambian a los 5 s de cargar.
+retardoMs: 5000 # TC-ELEM-091..093
+claseColor: text-danger # TC-ELEM-092

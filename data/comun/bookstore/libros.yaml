@@ -1,0 +1,9 @@
+# Libros del catálogo de DemoQA usados en los escenarios (GET /BookStore/v1/Books)
+# y avisos de la UI del Book Store (texto literal de los alert del navegador).
+libros:
+  git_pocket_guide:
+    isbn: '9781449325862'
+    titulo: Git Pocket Guide
+
+avisos:
+  libro_eliminado: Book deleted.
