@@ -1,57 +1,90 @@
 /// <reference types="cypress" />
 
+const FILAS_TABLA = '.web-tables-wrapper table tbody tr';
+
 export class WebTablesPage {
-// Definición de selectores como funciones para mejor reutilización
-elements = {
-btnAgregar: () => cy.get("#addNewRecordButton"), // Botón para agregar nuevo usuario
-inputNombre: () => cy.get("#firstName"),
-inputApellido: () => cy.get("#lastName"),
-inputEmail: () => cy.get("#userEmail"),
-inputEdad: () => cy.get("#age"),
-inputSalario: () => cy.get("#salary"),
-inputDepartamento: () => cy.get("#department"),
-botonEnviar: () => cy.get("#submit"),
-inputBusqueda: () => cy.get("#searchBox"),
-tablaCuerpo: () => cy.get(".rt-tbody"),
-filaUsuario: (nombre) => cy.contains(".rt-tbody .rt-tr", nombre), // Buscar usuario por nombre en la tabla
-botonEliminar: (nombre) => cy.contains(".rt-tbody .rt-tr", nombre).find('span[id^="delete-record-"]'),
-mensajeNoDatos: () => cy.get(".rt-noData") // Mensaje cuando no hay datos en la tabla
-};
+  // --- Elementos ---
+  get botonAgregar() {
+    return cy.get('#addNewRecordButton');
+  }
 
-// Método para abrir el formulario de agregar un nuevo usuario
-abrirFormularioNuevoRegistro() {
-this.elements.btnAgregar().click();
-}
+  get inputNombre() {
+    return cy.get('#firstName');
+  }
 
-// Método para llenar el formulario de nuevo usuario y enviarlo
-llenarFormulario(datos) {
-this.elements.inputNombre().clear().type(datos.nombre);
-this.elements.inputApellido().clear().type(datos.apellido);
-this.elements.inputEmail().clear().type(datos.email);
-this.elements.inputEdad().clear().type(datos.edad);
-this.elements.inputSalario().clear().type(datos.salario);
-this.elements.inputDepartamento().clear().type(datos.departamento);
-this.elements.botonEnviar().click();
-}
+  get inputApellido() {
+    return cy.get('#lastName');
+  }
 
-// Método para verificar que un usuario esté en la tabla
-verificarRegistroEnTabla(nombre) {
-this.elements.filaUsuario(nombre).should("exist");
-}
+  get inputEmail() {
+    return cy.get('#userEmail');
+  }
 
-// Método para buscar un usuario en la tabla
-buscarUsuario(nombre) {
-this.elements.inputBusqueda().clear().type(nombre);
-}
+  get inputEdad() {
+    return cy.get('#age');
+  }
 
-// Método para eliminar un usuario de la tabla
-eliminarRegistro(nombre) {
-this.elements.botonEliminar(nombre).click();
-}
+  get inputSalario() {
+    return cy.get('#salary');
+  }
 
-// Método para verificar que un usuario fue eliminado
-verificarUsuarioEliminado() {
-this.elements.mensajeNoDatos().should("contain", "No rows found");
-}
-}
+  get inputDepartamento() {
+    return cy.get('#department');
+  }
 
+  get botonEnviar() {
+    return cy.get('#submit');
+  }
+
+  get inputBusqueda() {
+    return cy.get('#searchBox');
+  }
+
+  // Tras el rediseño, DemoQA usa una <table> HTML (antes react-table con .rt-*)
+  get filasTabla() {
+    return cy.get(FILAS_TABLA);
+  }
+
+  filaUsuario(nombre) {
+    return cy.contains(FILAS_TABLA, nombre);
+  }
+
+  botonEliminar(nombre) {
+    return this.filaUsuario(nombre).find('span[id^="delete-record-"]');
+  }
+
+  // --- Acciones ---
+  visitar() {
+    cy.visit('/webtables');
+    // Guard de carga (sincronización, no verificación de negocio)
+    cy.location('pathname').should('eq', '/webtables');
+    return this;
+  }
+
+  abrirFormularioNuevoRegistro() {
+    this.botonAgregar.click();
+    return this;
+  }
+
+  // Rellena el formulario de alta y lo envía
+  llenarFormulario({ nombre, apellido, email, edad, salario, departamento }) {
+    this.inputNombre.clear().type(nombre);
+    this.inputApellido.clear().type(apellido);
+    this.inputEmail.clear().type(email);
+    this.inputEdad.clear().type(edad);
+    this.inputSalario.clear().type(salario);
+    this.inputDepartamento.clear().type(departamento);
+    this.botonEnviar.click();
+    return this;
+  }
+
+  buscarUsuario(nombre) {
+    this.inputBusqueda.clear().type(nombre);
+    return this;
+  }
+
+  eliminarRegistro(nombre) {
+    this.botonEliminar(nombre).click();
+    return this;
+  }
+}

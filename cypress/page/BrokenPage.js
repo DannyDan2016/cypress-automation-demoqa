@@ -1,11 +1,11 @@
 class BrokenPage {
-    visitar() {
+  visitar() {
     cy.visit('/broken');
-    }
-    verificarImagenRota() {
+  }
+  verificarImagenRota() {
     cy.get('img').each(($img) => {
-        cy.wrap($img).should('be.visible');
+      cy.wrap($img).should('be.visible');
     });
-    }
+  }
 }
 export default new BrokenPage();

@@ -1,0 +1,15 @@
+# Normaliza los finales de línea: LF en el repositorio y en el working tree,
+# sea cual sea el sistema operativo o el valor de core.autocrlf de cada persona.
+* text=auto eol=lf
+
+# Binarios: sin conversión de finales de línea ni diff de texto
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
+*.mp4 binary
+*.webm binary
+*.pdf binary
+*.zip binary

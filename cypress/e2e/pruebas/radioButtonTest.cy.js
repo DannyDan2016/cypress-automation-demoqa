@@ -1,45 +1,26 @@
 /// <reference types="cypress" />
-import { RadioButtonPage } from "../../page/RadioButtonPage";
 
-describe("Pruebas en la página de Radio Button", () => {
-let radioButtonPage;
-let datosPrueba;
+import { RadioButtonPage } from '../../page/RadioButtonPage';
+import datos from '../../fixtures/radio-button.json';
 
-// Antes de todas las pruebas, cargamos los datos de prueba
-before(() => {
-    cy.fixture("datosPrueba.json").then((data) => {
-        datosPrueba = data.radioButton;
-    });
-});
+describe('Pruebas en la página de Radio Button', () => {
+  const radioButtonPage = new RadioButtonPage();
 
-// Antes de cada prueba, se inicializa la página
-beforeEach(() => {
-    radioButtonPage = new RadioButtonPage();
+  beforeEach(() => {
     radioButtonPage.visitar();
-});
+  });
 
-it("Debe seleccionar cada opción de radio button permitida y verificar su selección", () => {
-    datosPrueba.opciones.forEach((opcion, index) => {
-        if (opcion !== "No") { // Solo intentamos seleccionar Yes e Impressive
-            cy.log(`Seleccionando opción: ${opcion}`);
+  // Data-driven: un test por cada opción habilitada del fixture
+  datos.opcionesHabilitadas.forEach(({ opcion, mensaje }) => {
+    it(`Debe seleccionar la opción "${opcion}" y mostrar su mensaje`, () => {
+      radioButtonPage.seleccionarOpcion(opcion);
 
-            // Paso 1: Seleccionar el radio button permitido
-            radioButtonPage.seleccionarOpcion(opcion);
-            cy.wait(500);
-            cy.screenshot(`Paso_${index + 1}_Seleccion_${opcion}`);
-
-            // Paso 2: Validar que el mensaje mostrado sea el correcto
-            const mensajeEsperado = datosPrueba[`mensaje${opcion}`];
-            cy.log(`Verificando mensaje: ${mensajeEsperado}`);
-            radioButtonPage.verificarMensajeSeleccionado(mensajeEsperado);
-            cy.screenshot(`Paso_${index + 1}_Verificacion_${opcion}`);
-        }
+      radioButtonPage.radio(opcion).should('be.checked');
+      radioButtonPage.mensajeSeleccion.should('have.text', mensaje);
     });
-});
+  });
 
-it("Debe verificar que el radio button 'No' está deshabilitado", () => {
-    radioButtonPage.verificarRadioNoDeshabilitado();
+  it(`Debe mostrar la opción "${datos.opcionDeshabilitada}" deshabilitada`, () => {
+    radioButtonPage.radio(datos.opcionDeshabilitada).should('be.disabled');
+  });
 });
-});
-
-
