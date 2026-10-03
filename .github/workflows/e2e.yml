@@ -1,0 +1,144 @@
+# Lint y pruebas E2E dentro de la imagen Docker del repo (docker compose), igual que en local.
+#   - pull_request y push a main: smoke (@smoke and not @known-bug)
+#   - schedule nocturno: regresión completa (not @known-bug)
+#   - workflow_dispatch: expresión de tags y ambiente a elección
+# El reporte HTML de Cucumber se sube como artefacto y, desde main, se publica en GitHub Pages.
+name: E2E
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 5 * * *' # 05:00 UTC, todos los días
+  workflow_dispatch:
+    inputs:
+      tags:
+        description: 'Expresión de tags de Cucumber (p. ej. "@regression and not @known-bug")'
+        type: string
+        required: true
+        default: 'not @known-bug'
+      ambiente:
+        description: 'Ambiente (TEST_ENV)'
+        type: choice
+        options: [prod, qa, staging, dev]
+        default: prod
+
+permissions:
+  contents: read
+
+concurrency:
+  group: e2e-${{ github.ref }}
+  # En PR se cancela la ejecución anterior; en main y en la nocturna se dejan terminar
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  calidad:
+    name: Lint y pruebas unitarias (Docker)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Descargar el código
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      # La imagen cypress/included debe tener EXACTAMENTE la versión de cypress del
+      # package.json (dependabot actualiza cada una por separado).
+      - name: Comprobar que la imagen y el paquete usan la misma versión de Cypress
+        run: |
+          imagen=$(sed -n 's|^FROM cypress/included:||p' Dockerfile)
+          paquete=$(node -p "require('./package.json').devDependencies.cypress")
+          if [ "$imagen" != "$paquete" ]; then
+            echo "::error file=Dockerfile::cypress/included:$imagen no coincide con cypress@$paquete del package.json"
+            exit 1
+          fi
+          echo "Cypress $paquete en la imagen y en el paquete"
+
+      - name: Construir la imagen
+        run: docker compose build
+
+      - name: Lint (ESLint y tags de las features)
+        run: docker compose run --rm --no-deps --entrypoint npm e2e run lint
+
+      - name: Formato (Prettier)
+        run: docker compose run --rm --no-deps --entrypoint npm e2e run format:check
+
+      - name: Pruebas unitarias de la configuración
+        run: docker compose run --rm --no-deps --entrypoint npm e2e run test:unit
+
+  e2e:
+    name: E2E (Docker, Chrome)
+    needs: calidad
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    outputs:
+      reporte-pages: ${{ steps.artefacto-pages.outcome }}
+    steps:
+      - name: Descargar el código
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      # Los inputs llegan por variables de entorno (no interpolados en el script)
+      - name: Resolver tags y ambiente
+        id: filtro
+        env:
+          EVENTO: ${{ github.event_name }}
+          TAGS_MANUAL: ${{ inputs.tags }}
+          AMBIENTE_MANUAL: ${{ inputs.ambiente }}
+        run: |
+          case "$EVENTO" in
+            workflow_dispatch) tags="$TAGS_MANUAL"; ambiente="$AMBIENTE_MANUAL" ;;
+            schedule) tags='not @known-bug'; ambiente='prod' ;;
+            *) tags='@smoke and not @known-bug'; ambiente='prod' ;;
+          esac
+          {
+            echo "tags=$tags"
+            echo "ambiente=$ambiente"
+          } >> "$GITHUB_OUTPUT"
+          echo "Ejecución: \`$tags\` en el ambiente \`$ambiente\`" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Construir la imagen
+        run: docker compose build
+
+      - name: Ejecutar la suite
+        env:
+          TAGS: ${{ steps.filtro.outputs.tags }}
+          TEST_ENV: ${{ steps.filtro.outputs.ambiente }}
+        run: docker compose run --rm e2e
+
+      - name: Subir el reporte y las capturas
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: reporte-e2e-${{ github.run_id }}-${{ github.run_attempt }}
+          path: reports/
+          if-no-files-found: warn
+          retention-days: 14
+
+      # Solo desde main (push, nocturna o manual): también se publica si hay fallos
+      - name: Preparar el reporte para GitHub Pages
+        id: artefacto-pages
+        if: >-
+          always() && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+          && hashFiles('reports/cucumber/index.html') != ''
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: reports/cucumber
+
+  publicar-reporte:
+    name: Publicar el reporte en GitHub Pages
+    needs: e2e
+    if: always() && needs.e2e.outputs.reporte-pages == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.despliegue.outputs.page_url }}
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    steps:
+      - name: Desplegar en GitHub Pages
+        id: despliegue
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
