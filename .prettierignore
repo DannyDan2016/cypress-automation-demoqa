@@ -5,7 +5,3 @@ cypress/reports/
 cypress/screenshots/
 cypress/videos/
 cypress/downloads/
-
-# Temporal: el README actual no usa bloques de código y Prettier rompe su árbol
-# de carpetas. Se quitará de aquí al reescribirlo en la rama de documentación.
-README.md
