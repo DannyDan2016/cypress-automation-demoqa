@@ -1,51 +1,60 @@
 export class TextBoxPage {
-  constructor() {
-    this.selectors = {
-      nombreInput: "#userName",
-      emailInput: "#userEmail",
-      direccionActualInput: "#currentAddress",
-      direccionPermanenteInput: "#permanentAddress",
-      botonEnviar: "#submit",
-      nombreSalida: "#name",
-      emailSalida: "#email",
-      direccionActualSalida: ".border > #currentAddress",
-      direccionPermanenteSalida: ".border > #permanentAddress"
-    };
+  // --- Elementos del formulario ---
+  get nombreInput() {
+    return cy.get('#userName');
   }
 
-  escribirNombre(nombre) {
-    cy.get(this.selectors.nombreInput).type(nombre);
+  get emailInput() {
+    return cy.get('#userEmail');
   }
 
-  escribirEmail(email) {
-    cy.get(this.selectors.emailInput).type(email);
+  get direccionActualInput() {
+    return cy.get('#currentAddress');
   }
 
-  escribirDireccionActual(direccion) {
-    cy.get(this.selectors.direccionActualInput).type(direccion);
+  get direccionPermanenteInput() {
+    return cy.get('#permanentAddress');
   }
 
-  escribirDireccionPermanente(direccion) {
-    cy.get(this.selectors.direccionPermanenteInput).type(direccion);
+  get botonEnviar() {
+    return cy.get('#submit');
   }
 
-  clickEnBotonEnviar() {
-    cy.get(this.selectors.botonEnviar).click();
+  // --- Salida tras enviar (contenedor #output) ---
+  get nombreSalida() {
+    return cy.get('#output #name');
   }
 
-  verificarNombreSalida() {
-    return cy.get(this.selectors.nombreSalida);
+  get emailSalida() {
+    return cy.get('#output #email');
   }
 
-  verificarEmailSalida() {
-    return cy.get(this.selectors.emailSalida);
+  get direccionActualSalida() {
+    return cy.get('#output #currentAddress');
   }
 
-  verificarDireccionActualSalida() {
-    return cy.get(this.selectors.direccionActualSalida);
+  get direccionPermanenteSalida() {
+    return cy.get('#output #permanentAddress');
   }
 
-  verificarDireccionPermanenteSalida() {
-    return cy.get(this.selectors.direccionPermanenteSalida);
+  // --- Acciones ---
+  visitar() {
+    cy.visit('/text-box');
+    // Guard de carga (sincronización, no verificación de negocio)
+    cy.location('pathname').should('eq', '/text-box');
+    return this;
+  }
+
+  completarFormulario({ nombre, email, direccion, direccionPermanente }) {
+    this.nombreInput.clear().type(nombre);
+    this.emailInput.clear().type(email);
+    this.direccionActualInput.clear().type(direccion);
+    this.direccionPermanenteInput.clear().type(direccionPermanente);
+    return this;
+  }
+
+  enviar() {
+    this.botonEnviar.click();
+    return this;
   }
 }

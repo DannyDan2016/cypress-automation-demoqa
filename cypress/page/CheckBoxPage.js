@@ -1,55 +1,32 @@
 export class CheckBoxPage {
-constructor() {
-    // Elemento para expandir la lista de checkboxes
-    this.expandButton = ".rct-collapse-btn";
+  // --- Elementos ---
+  // DemoQA usa rc-tree: el primer "switcher" expande el nodo raíz (Home)
+  get botonExpandirRaiz() {
+    return cy.get('.rc-tree-switcher').first();
+  }
 
-    // Selector de las etiquetas de checkbox
-    this.checkboxLabel = ".rct-title";
+  // Casilla de un nodo, identificada por su aria-label accesible ("Select <nombre>").
+  // Su estado se lee en `aria-checked`. Ojo: hacer clic en el título solo resalta el nodo.
+  casilla(nombreElemento) {
+    return cy.get(`.rc-tree-checkbox[role="checkbox"][aria-label="Select ${nombreElemento}"]`);
+  }
 
-    // Íconos que indican si un checkbox está marcado o desmarcado
-    this.checkboxCheckIcon = ".rct-icon-check";
-    this.checkboxUncheckIcon = ".rct-icon-uncheck";
-}
+  // --- Acciones ---
+  visitar() {
+    cy.visit('/checkbox');
+    // Guard de carga (sincronización, no verificación de negocio)
+    cy.location('pathname').should('eq', '/checkbox');
+    return this;
+  }
 
-/**
- * Expande la lista de checkboxes
- */
-expandirLista() {
-    cy.log("Expandiendo la lista de checkboxes...");
-    cy.get(this.expandButton).click();
-}
+  expandirLista() {
+    this.botonExpandirRaiz.click();
+    return this;
+  }
 
-/**
- * Selecciona un checkbox basado en el nombre visible del elemento
- * @param {string} nombreElemento - Nombre visible del checkbox en la interfaz
- */
-seleccionarElemento(nombreElemento) {
-    cy.log(`Seleccionando checkbox: ${nombreElemento}`);
-    cy.contains(this.checkboxLabel, nombreElemento).click();
+  // Alterna el estado de la casilla (marca si estaba desmarcada y viceversa)
+  alternarElemento(nombreElemento) {
+    this.casilla(nombreElemento).click();
+    return this;
+  }
 }
-
-/**
- * Verifica si un checkbox está seleccionado
- * @param {string} nombreElemento - Nombre visible del checkbox en la interfaz
- */
-verificarElementoSeleccionado(nombreElemento) {
-    cy.log(`Verificando que el checkbox "${nombreElemento}" esté seleccionado`);
-    cy.contains(this.checkboxLabel, nombreElemento)
-    .parent()
-    .find(this.checkboxCheckIcon)
-    .should("exist");
-}
-
-/**
- * Verifica si un checkbox está desmarcado
- * @param {string} nombreElemento - Nombre visible del checkbox en la interfaz
- */
-verificarElementoDeseleccionado(nombreElemento) {
-    cy.log(`Verificando que el checkbox "${nombreElemento}" esté desmarcado`);
-    cy.contains(this.checkboxLabel, nombreElemento)
-    .parent()
-    .find(this.checkboxUncheckIcon)
-    .should("exist");
-}
-}
-  

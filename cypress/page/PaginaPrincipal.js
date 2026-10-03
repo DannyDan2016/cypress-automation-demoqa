@@ -1,15 +1,15 @@
 class PaginaPrincipal {
-    visitar() {
+  visitar() {
     cy.visit('/');
-    }
-    irAFormularioTexto() {
+  }
+  irAFormularioTexto() {
     cy.get('span').contains('Text Box').click();
-    }
-    irACheckbox() {
+  }
+  irACheckbox() {
     cy.get('span').contains('Check Box').click();
-    }
-    irARadioButton() {
+  }
+  irARadioButton() {
     cy.get('span').contains('Radio Button').click();
-    }
+  }
 }
 export default new PaginaPrincipal();

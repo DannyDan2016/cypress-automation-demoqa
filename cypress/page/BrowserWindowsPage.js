@@ -1,12 +1,12 @@
 class BrowserWindowsPage {
-    visitar() {
+  visitar() {
     cy.visit('/browser-windows');
-    }
-    abrirNuevaPestana() {
+  }
+  abrirNuevaPestana() {
     cy.get('#tabButton').click();
-    }
-    abrirNuevaVentana() {
+  }
+  abrirNuevaVentana() {
     cy.get('#windowButton').click();
-    }
+  }
 }
 export default new BrowserWindowsPage();

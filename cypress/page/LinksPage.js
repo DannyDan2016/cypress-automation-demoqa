@@ -1,9 +1,9 @@
 class LinksPage {
-    visitar() {
+  visitar() {
     cy.visit('/links');
-    }
-    hacerClickEnLink(link) {
+  }
+  hacerClickEnLink(link) {
     cy.contains('a', link).click();
-    }
+  }
 }
 export default new LinksPage();

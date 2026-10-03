@@ -1,37 +1,51 @@
 export class ButtonsPage {
-constructor() {
-    // Selectores de los botones
-    this.doubleClickButton = "#doubleClickBtn"; // Botón para doble clic
-    this.rightClickButton = "#rightClickBtn"; // Botón para clic derecho
-    this.singleClickText = "Click Me"; // Usamos el texto del botón en lugar del selector dinámico
+  // --- Botones ---
+  get botonDobleClick() {
+    return cy.get('#doubleClickBtn');
+  }
 
-    // Selectores de los mensajes de confirmación
-    this.doubleClickMessage = "#doubleClickMessage";
-    this.rightClickMessage = "#rightClickMessage";
-    this.singleClickMessage = "#dynamicClickMessage";
-}
+  get botonClickDerecho() {
+    return cy.get('#rightClickBtn');
+  }
 
-// Navegar a la página de botones
-visitarPagina() {
-    cy.visit("/buttons");
-}
+  // El botón "Click Me" tiene un id aleatorio en cada carga: se localiza por su texto exacto
+  get botonClickDinamico() {
+    return cy.contains('button', /^Click Me$/);
+  }
 
-// Métodos de acción sobre los botones
-hacerDobleClick() {
-    cy.get(this.doubleClickButton).should("be.visible").dblclick();
-}
+  // --- Mensajes de confirmación ---
+  get mensajeDobleClick() {
+    return cy.get('#doubleClickMessage');
+  }
 
-hacerClickDerecho() {
-    cy.get(this.rightClickButton).should("be.visible").rightclick();
-}
+  get mensajeClickDerecho() {
+    return cy.get('#rightClickMessage');
+  }
 
-hacerClickUnico() {
-    cy.get("button").contains(/^Click Me$/).should("be.visible").click();
-}
+  get mensajeClickDinamico() {
+    return cy.get('#dynamicClickMessage');
+  }
 
-// Método para verificar mensajes de éxito después del clic
-verificarMensaje(mensaje) {
-    cy.get(mensaje, { timeout: 10000 }).should("be.visible");
-}
-}
+  // --- Acciones ---
+  visitar() {
+    cy.visit('/buttons');
+    // Guard de carga (sincronización, no verificación de negocio)
+    cy.location('pathname').should('eq', '/buttons');
+    return this;
+  }
 
+  hacerDobleClick() {
+    this.botonDobleClick.dblclick();
+    return this;
+  }
+
+  hacerClickDerecho() {
+    this.botonClickDerecho.rightclick();
+    return this;
+  }
+
+  hacerClickUnico() {
+    this.botonClickDinamico.click();
+    return this;
+  }
+}
