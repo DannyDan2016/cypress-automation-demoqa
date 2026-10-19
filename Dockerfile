@@ -1,6 +1,6 @@
 # Imagen oficial con Node, Chrome, Firefox, Edge y el binario de Cypress preinstalados.
 # La versión debe coincidir EXACTAMENTE con la de "cypress" en package.json.
-FROM cypress/included:16.1.1
+FROM cypress/included:16.2.0
 
 WORKDIR /e2e
 
